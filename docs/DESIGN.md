@@ -6,18 +6,20 @@ This file is the source of truth for how tessarin.studio looks, moves and sounds
 
 ## 1. Concept: "Tessarin: The Film"
 
-The site isn't a brochure. It plays like a **short film you scroll through**: an opening slate, a title sequence, scenes, and end credits. The film language does real work:
+The site isn't a brochure. It plays like a **short film you scroll through**: an opening assembly, a title sequence, scenes, and end credits. The film language does real work:
 
 | Film device | What it does on the site |
 |---|---|
-| Clapperboard slate (preloader) | Hides loading, gets the click browsers need before sound can play, and starts the score |
+| One-shard intro (preloader) | While the page loads, a single shard (the accent from the logo) fills with ember along its own slant. On Enter it bursts, and its pieces fly out and build the wordmark: everything starts from one piece. The Enter click is the gesture browsers need before sound can play |
 | Letterbox bars | Frame every screen at a 2.39:1 feel. The nav lives inside the bars |
 | Scene numbers + timecode | Show where you are (SC.03 / WEB) and that the "film" is running |
 | Closed captions | One line of copy per scene, written like subtitles: `[low strings swell] We build…` |
 | Film-strip work reel | Projects shown as frames on a reel you scrub sideways |
-| End credits | Contact section. "Starring: your idea." Ends on a single CTA |
+| The finale (after Interstellar) | The DNA is pulled into a black hole that bends the copy and the stars around it. Then the camera dives into the glowing disk, the light swallows the frame, and the only thing left inside the glow is **Book a call**: the one point everything was bending toward |
 
 **The hero object is the logo's own accent shard.** The slanted red-orange tile on the "r" is the atom of the brand. Thousands of these shards build the wordmark, fly apart into a tunnel the camera dives through, and re-form into each service. We never use generic particles, stock 3D or icons.
+
+**One piece in, one point out.** The film opens with one shard and ends at one point (the Book a call button inside the light). Everything in between is built from that shard and, at the end, falls back in.
 
 **Positioning in one line:** young, fast, unreasonably technical. We prove it by how the site itself is built, not by claiming it.
 
@@ -56,7 +58,7 @@ The ember always sits on void. Never put ember text on bone.
 |---|---|---|---|
 | Display | **Unbounded** (variable 200–900) | 900 for titles, 200 for giant numerals, tracking −0.04em, line-height 0.86 | Wide, geometric, with cut terminals like the logo. It reads as a film title at huge sizes |
 | Accent | **Bodoni Moda Italic** (400/600) | Used for 1–2 words per headline only | High-contrast editorial serif. The tension between the brutal wide sans and the fine italic is the type signature |
-| Utility | **Martian Mono** (variable width + weight) | 400, uppercase, tracking +0.08em, 10–12px | Slate data, timecode, captions, tags. Gives the "camera HUD" voice |
+| Utility | **Martian Mono** (variable width + weight) | 400, uppercase, tracking +0.08em, 10–12px | Loading readout, timecode, captions, tags. Gives the "camera HUD" voice |
 
 **Scale (clamp, fluid):** `--t-mega: clamp(4rem, 15vw, 15rem)` · `--t-xl: clamp(2.6rem, 7vw, 6.5rem)` · `--t-l: clamp(1.8rem, 3.6vw, 3.2rem)` · `--t-m: 1.15rem` · `--t-s: .95rem` · `--t-xs: .7rem` (mono)
 
@@ -85,11 +87,13 @@ Fonts are self-hosted (inlined as WOFF2 in prototypes, `next/font/local` in prod
 | Shards → formation | Spring physics (stiffness 26, damping 6.5). Shards spin while moving and settle flat |
 | Camera | A dolly through the shard tunnel in the manifesto (z 14 → −16, scrubbed) |
 | Scroll velocity | Drives chromatic aberration and shard stretch, so fast scrolling *feels* fast |
-| Cursor | Viewfinder brackets that lock onto links ("focus pull"), plus a red point light in 3D |
+| Cursor | Simple: the logo's accent shard, small and solid ember, following the pointer. Over anything you can click it grows into an ember outline; it shrinks on press. A red point light follows it in 3D. Hidden on touch screens. No lenses or effects on the cursor |
 | Magnetic CTA | Pulls up to 18px toward the cursor |
 | Reduced motion | No tunnel, no CA, instant formations, no char reveals. Content still fully readable |
 
-**Post-processing stack:** render → UnrealBloom (threshold 0.6, strength 0.55) → film pass (radial chromatic aberration, animated grain 0.06, vignette) → output.
+**Post-processing stack:** render → black hole lens (finale only) → UnrealBloom (threshold 0.6, strength 0.55) → film pass (radial chromatic aberration, animated grain 0.018, vignette) → output.
+
+**Scroll length:** the whole film is about 13.5 screens on desktop (it was 21 in v4). The finale is 2.5 screens and ends exactly at the bottom of the page.
 
 ---
 
@@ -105,7 +109,7 @@ All of it is generated live with the Web Audio API, so there are no audio files 
   - **Ostinato:** 16th-note low strings, the Zimmer-style pulse
   - **Arp:** plucked chord tones through a ping-pong delay, with a different pattern for each service
   - **Clock ticks:** tension in the manifesto and process scenes
-- **Hits:** the clapper "clack" on enter, then a **braam** (detuned brass-like saws with a filter sweep), taiko-style impacts between scenes, and a final braam in the credits.
+- **Hits:** a sharp "clack" on enter, then a **braam** (detuned brass-like saws with a filter sweep), taiko-style impacts between scenes, and a final braam in the credits.
 - **Shard voice:** shards the cursor disturbs ring as glass notes **in the current chord**, so playing with the 3D is literally playing the score.
 - **Mix per scene:** each scene sets target levels for the layers, crossfading over about 1.2s.
 - **Rules:** the 80/20 rule (sound amplifies, never overwhelms). "Enter muted" is always offered. Mute state is remembered.
@@ -114,12 +118,12 @@ All of it is generated live with the Web Audio API, so there are no audio files 
 
 ## 8. Components
 
-- **Slate (preloader):** clapper stick with ember/bone stripes. Slate fields: PROD / SCENE / TAKE / ROLL / DATE / SOUND. Giant thin counter 000–100. Buttons: "Play with sound" (primary) and "Enter muted".
+- **Intro (preloader):** pure black over the live 3D stage. In the middle sits one shard: the empty shape in a faint bone tint, filling with ember along its slant as loading progresses, glowing a little more as it fills. Under it, in mono: "Loading 47%". At 100% the shard breathes, and the readout gives way to an ember **Enter** pill (with a live sound-bars icon) and a quiet "Enter without sound" link. On Enter the shard bursts (pressure wave, braam), its pieces fly out of it and build the wordmark in the hero, and the letterbox bars slide in. No other copy on this screen.
 - **Letterbox nav:** see §5. The scene label updates with a scramble effect.
 - **Caption line:** mono, centred above the bottom bar, `[sound cue]` in smoke, then copy in bone. Types itself out.
 - **Scene card:** mono eyebrow `SC.03 — WEB` → Unbounded headline → body (max 46ch) → tags.
 - **Reel frame:** 4:5 poster with sprocket-hole edges, frame number, title in Bodoni italic, discipline in mono, and a "SAMPLE" flag until real work is in.
-- **Credits roll:** centred, role in mono, name in Unbounded. Ends with "Starring: your idea", then the magnetic CTA and a copyable email.
+- **Black hole finale:** a ray-traced Schwarzschild black hole in the style of Interstellar's Gargantua. It has a black shadow, a thin ember-to-white accretion disk with its far side lensed over and under the shadow, a faint star field dragged around it, and an Einstein ring. Scroll timeline: the hole forms around the DNA → the DNA comes apart into the whole journey around the hole: the wordmark, WEB, AI and the headset, with the DNA in the middle → gravity takes them one by one in the order the visitor saw them, each spiralling through the disk and the horizon → the headline "Everything bends / toward *one point.*" appears, then bends, smears into a spiral and falls in → DNA shards orbit and cross the horizon → the camera dives toward the bright side of the disk (a riser builds) → the light swallows the frame in a short white-hot flash (braam and impact) → it settles into a slowly swirling ember glow, the inside of the disk → a black **Book a call** pill appears at the white-hot centre. Nothing else is on screen.
 - **Buttons:** pill, mono uppercase. Primary is ember fill with void text; secondary has a hairline border.
 
 ---
@@ -138,4 +142,4 @@ All of it is generated live with the Web Audio API, so there are no audio files 
 
 Next.js (App Router, TS) · React Three Fiber + drei · three postprocessing · Rapier · GSAP + ScrollTrigger · Lenis · Web Audio (custom score engine) · Cal.com embed · Vercel.
 
-Performance budget: first paint of the slate in under 1s, 60fps desktop / 30fps mid-range Android, adaptive particle count and pixel ratio, bloom at half resolution on phones.
+Performance budget: first paint of the intro in under 1s, 60fps desktop / 30fps mid-range Android, adaptive particle count and pixel ratio, bloom at half resolution on phones.
