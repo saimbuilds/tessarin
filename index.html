@@ -134,9 +134,8 @@ main{position:relative;z-index:10}
 
 /* capability scenes */
 .s-cap{height:190vh}
-.morph-gap{height:260vh}   /* scroll room for the WEB → AI transition */
-.morph-gap.vr-gap{height:340vh}   /* and for AI → VR */
-.bigword{position:absolute;left:50%;top:50%;transform:translate(-50%,-56%);font-family:var(--f-display);font-weight:900;font-size:clamp(5rem,30vw,32rem);line-height:.8;letter-spacing:-.06em;color:transparent;-webkit-text-stroke:1px rgba(237,234,228,.22);white-space:nowrap;pointer-events:none;user-select:none}
+.morph-gap{height:20vh}   /* a little extra scroll room for the WEB → AI transition */
+.morph-gap.vr-gap{height:60vh}   /* and for AI → VR */
 .cap-grid{position:absolute;inset:0;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:24px}
 .card{display:grid;gap:16px;max-width:34rem;min-width:0}
 .eyebrow{color:var(--ember);display:flex;gap:10px;align-items:center}
@@ -205,7 +204,6 @@ h2.t em{font-size:1.04em}
   .tags{justify-items:start;text-align:left;display:flex;flex-wrap:wrap;gap:6px 14px}
   .tags li::after{display:none}
   .card{background:linear-gradient(to bottom,transparent,rgba(0,0,0,.75) 22%);padding-top:22px}
-  .bigword{top:38%}
   .steps{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:16px}
   .board-body div{padding:10px}
   .pad{padding-bottom:calc(var(--lb-bot) + 100px)}
@@ -278,7 +276,7 @@ h2.t em{font-size:1.04em}
     </div>
   </section>
 
-  <section class="scene s-cap" data-form="web" data-name="Web" data-mix="web">
+  <section class="scene s-cap" data-form="web" data-name="Web" data-hold-end=".55" data-mix="web">
     <div class="sticky">
       <div class="cap-grid pad">
         <div class="card"><h2 class="t split">Sites that feel <em>alive.</em></h2><p class="body fade">Marketing sites people remember and web apps people actually use. Fast on a mid-range phone, beautiful on a 5K screen.</p></div>
@@ -288,7 +286,7 @@ h2.t em{font-size:1.04em}
 
   <div class="morph-gap" aria-hidden="true"></div>
 
-  <section class="scene s-cap" data-form="ai" data-name="AI" data-mix="ai">
+  <section class="scene s-cap" data-form="ai" data-name="AI" data-hold-end=".55" data-mix="ai">
     <div class="sticky">
       <div class="cap-grid pad">
         <div class="card"><h2 class="t split">AI that does <em>real work.</em></h2><p class="body fade">Agents that answer customers, search your documents and automate the slow parts of your operations, wired into the tools you already use.</p></div>
@@ -299,7 +297,7 @@ h2.t em{font-size:1.04em}
   <div class="morph-gap vr-gap" aria-hidden="true"></div>
 
   <section class="scene s-cap" data-form="vr" data-name="Emerging" data-mix="emerging">
-    <div class="sticky"><div class="bigword" aria-hidden="true">NEW</div>
+    <div class="sticky">
       <div class="cap-grid pad">
         <div class="card"><h2 class="t split">The stuff that's <em>still new.</em></h2><p class="body fade">WebGL worlds, 3D product viewers, AR try-ons and interactive installations. If it sits on the edge of what a browser can do, we want it.</p></div>
         <ul class="tags mono fade"><li>Three.js</li><li>Shaders</li><li>AR</li><li>Real-time 3D</li><li>Spatial UI</li></ul>
@@ -310,9 +308,9 @@ h2.t em{font-size:1.04em}
     <div class="sticky">
       <div class="reel-head"><div class="card"><h2 class="t split">Selected <em>frames.</em></h2></div><span class="mono" style="color:var(--smoke)">Scroll to advance the reel →</span></div>
       <div class="reel-view"><div class="track" id="track">
-        <a class="frame" href="#reel" data-lock data-art="topo"><canvas></canvas><div class="f-top mono"><span class="flag">Sample</span></div><div></div><div class="f-bot"><h3>Atlas</h3><span class="mono">AI · Support agent</span><p>An agent that answers most support tickets before a person has to.</p></div></a>
-        <a class="frame" href="#reel" data-lock data-art="seats"><canvas></canvas><div class="f-top mono"><span class="flag">Sample</span></div><div></div><div class="f-bot"><h3>Mehfil</h3><span class="mono">Web · Event platform</span><p>Live seat maps and payments for a city's busiest venues.</p></div></a>
-        <a class="frame" href="#reel" data-lock data-art="orbit"><canvas></canvas><div class="f-top mono"><span class="flag">Sample</span></div><div></div><div class="f-bot"><h3>Orbit</h3><span class="mono">3D · Product configurator</span><p>A furniture catalogue you can spin, recolour and place in your room.</p></div></a>
+        <a class="frame" href="#reel" data-lock data-art="topo"><canvas></canvas><div class="f-top mono"><span class="flag">Sample</span></div><div></div><div class="f-bot"><h3>Vexilot</h3><span class="mono">AI · Support agent</span><p>An agent that answers most support tickets before a person has to.</p></div></a>
+        <a class="frame" href="#reel" data-lock data-art="seats"><canvas></canvas><div class="f-top mono"><span class="flag">Sample</span></div><div></div><div class="f-bot"><h3>WebAudit</h3><span class="mono">Web · Event platform</span><p>Live seat maps and payments for a city's busiest venues.</p></div></a>
+        <a class="frame" href="#reel" data-lock data-art="orbit"><canvas></canvas><div class="f-top mono"><span class="flag">Sample</span></div><div></div><div class="f-bot"><h3>DriveFetch</h3><span class="mono">3D · Product configurator</span><p>A furniture catalogue you can spin, recolour and place in your room.</p></div></a>
         <a class="frame yours" href="https://cal.com/tessarin" target="_blank" rel="noopener" data-lock><span class="mono" style="color:var(--ember)">Unexposed</span><h3>Your project</h3><span class="btn primary">Book a call</span></a>
       </div></div>
     </div>
@@ -629,7 +627,7 @@ P.set(F.scatter);
 const scenes=[...document.querySelectorAll(".scene")];
 const names=scenes.map(s=>s.dataset.form);
 let holds=[];
-function measure(){const vh=innerHeight;holds=scenes.map(s=>{const top=s.getBoundingClientRect().top+scrollY,h=s.offsetHeight;let a=top-vh*.3,b=top+h-vh*.7;if(b<a){const m=(a+b)/2;a=b=m}return[a,b]})}
+function measure(){const vh=innerHeight;holds=scenes.map(s=>{const top=s.getBoundingClientRect().top+scrollY,h=s.offsetHeight;let a=top-vh*.3,b=s.dataset.holdEnd?top+vh*+s.dataset.holdEnd:top+h-vh*.7;/* hold-end: hand over to the next scene early */if(b<a){const m=(a+b)/2;a=b=m}return[a,b]})}
 const sstep=(t)=>{t=Math.min(1,Math.max(0,t));return t*t*(3-2*t)};
 function readScroll(y){
   for(let i=0;i<holds.length;i++){const[a,b]=holds[i];
@@ -652,7 +650,7 @@ function resize(){
 }
 let VRX=0;   // world x of the headset centre
 function place(name){const p=PLACE[name]||PLACE.scatter;
-  if(name==="vr"){const ph=phone();VRX=(ph?-.1:.06)*visW;return[ph?.17*visH:-.02*visH,Math.min(1.6,Math.max(.4,(ph?.15:.105)*visW))]}
+  if(name==="vr"){const ph=phone();VRX=(ph?-.1:.08)*visW;return[ph?.17*visH:.03*visH,Math.min(1.6,Math.max(.4,(ph?.15:.105)*visW))]}
   if(phone()){const s=Math.min(1,visW/(name==="logo"?10.4:WORDW[name]?wordMax()+1.2:7.4));return[name==="logo"?2.0:(name==="ring"||name==="tunnel"||name==="dust"||name==="scatter"?0:1.55),(name==="ring"?Math.min(1,visW/10.4):s)]}
   let s=Math.min(1.1,Math.max(.75,visW/15.6));if(WORDW[name])s=Math.min(s,visW*.62/wordMax());return[p[0],s*p[1]]}
 function xform(name,i,x,y,z,t,o){
@@ -902,6 +900,56 @@ function vrAim(i,j,q,o){
       const x1=vt2[0]*cy+vt2[2]*sy,z1=-vt2[0]*sy+vt2[2]*cy;o[0]=(x1)*ys+VRX;o[1]=(vt2[1]*cp-z1*sp)*ys+VH[1];o[2]=(vt2[1]*sp+z1*cp)*ys;MK=320;MC=36;MSC=.75}}
 }
 
+/* ---------- Signal Shot ----------
+   Shooting stars over a settled WEB, AI or VR scene: each enters off one edge of the screen, crosses the sky band
+   above the object in a straight horizontal line (y never changes) and leaves off the other edge, a white-hot head
+   pulling a continuous ember tail. Particles beneath light up one after another as a star passes.
+   They come in random bursts (one, two or three, staggered and at different heights); the first burst ~0.35s after
+   the scene settles, the next 2.5–6s after a burst ends. Randomness is drawn when a burst launches. */
+const TRN=phone()?12:20,SMAX=3;
+const STARS=[...Array(SMAX)].map(()=>({on:false,delay:0,t:0,dir:1,y0:0,x:0,px:0,x0:0,xEnd:0,dur:.8,len:0}));
+const SIG={wait:0,was:false,n:0},SX=new Float32Array(SMAX);
+const sigCore=new THREE.InstancedMesh(new THREE.CircleGeometry(.042,14),new THREE.MeshBasicMaterial({color:new THREE.Color(3.4,2.9,2.6),fog:false}),SMAX);
+sigCore.instanceMatrix.setUsage(THREE.DynamicDrawUsage);sigCore.frustumCulled=false;sigCore.count=0;scene.add(sigCore);
+const sigTrail=new THREE.InstancedMesh(new THREE.PlaneGeometry(1,1),new THREE.MeshBasicMaterial({color:0xffffff,fog:false,depthWrite:false}),SMAX*20);
+sigTrail.instanceMatrix.setUsage(THREE.DynamicDrawUsage);sigTrail.frustumCulled=false;sigTrail.count=0;
+{const c=new THREE.Color();for(let k=0;k<SMAX*20;k++)sigTrail.setColorAt(k,c)}scene.add(sigTrail);
+const sigCol=new THREE.Color();
+const trailMax=()=>phone()?2.2:innerWidth<1024?3.4:4.6;
+function launchBurst(nm){
+  const n=R()<.45?1:R()<.45?2:3,dir=R()<.7?1:-1,p=place(nm),top=p[0]+(nm==="vr"?1.75:1.05)*p[1],sky=visH/2-.12*visH,half=visW/2+.4;
+  let delay=0;
+  for(let k=0;k<n;k++){const st=STARS[k];
+    st.on=true;st.delay=delay;delay+=.1+R()*.35;st.dir=R()<.85?dir:-dir;
+    st.y0=top+(sky-top)*(.15+.7*(k+.3+.4*R())/n);                         // each star gets its own height in the band
+    st.x0=st.x=st.px=camera.position.x-st.dir*half;st.xEnd=camera.position.x+st.dir*(half+trailMax());
+    st.dur=.7+R()*.25;st.t=0;st.len=0}
+}
+function sigUpdate(stable,dt,nm){
+  SIG.n=0;if(RM)return;
+  let live=false;
+  for(const st of STARS){if(!st.on)continue;
+    if(st.delay>0){if(!stable){st.on=false;continue}st.delay-=dt;live=true;continue}   // not launched yet: drop it if the scene moves on
+    st.t+=dt;const u=Math.min(1,st.t/st.dur);st.px=st.x;st.x=st.x0+(st.xEnd-st.x0)*Math.pow(u,1.35);     // slight ease-in: it whips rather than drifts
+    st.len=Math.min(trailMax(),Math.abs(st.x-st.px)/Math.max(dt,1e-3)*.12);
+    if(u>=1)st.on=false;else{live=true;SX[SIG.n++]=st.x}}
+  if(stable&&!SIG.was)SIG.wait=.35;SIG.was=stable;
+  if(!stable||live||(SIG.wait-=dt)>0)return;
+  launchBurst(nm);SIG.wait=2.5+R()*3.5;
+}
+function sigDraw(){
+  let c=0,t=0;
+  for(const st of STARS){if(!st.on||st.delay>0)continue;
+    dummy.position.set(st.x,st.y0,.03);dummy.rotation.set(0,0,0);dummy.scale.set(1,1,1);dummy.updateMatrix();sigCore.setMatrixAt(c++,dummy.matrix);
+    if(st.len<.02)continue;
+    // continuous tail: white-hot at the head, burning down to ember and tapering away
+    for(let k=0;k<TRN;k++){const f=(k+.5)/TRN,o=st.len*f,l=st.len/TRN*1.08,th=(phone()?.024:.034)*Math.pow(1-f,.8)+.004;
+      dummy.position.set(st.x-st.dir*o,st.y0,0);dummy.scale.set(l,th,1);dummy.updateMatrix();sigTrail.setMatrixAt(t,dummy.matrix);
+      const b=3.6*Math.pow(1-f,1.6)+.08,w=Math.max(0,1-k*.35);sigCol.setRGB(.91*b+w*1.6,.29*b+w*1.25,.16*b+w*1.1);sigTrail.setColorAt(t++,sigCol)}}
+  sigCore.count=c;sigTrail.count=t;
+  if(c)sigCore.instanceMatrix.needsUpdate=true;if(t){sigTrail.instanceMatrix.needsUpdate=true;sigTrail.instanceColor.needsUpdate=true}
+}
+
 /* ---------- main loop ---------- */
 let entered=false,enterT=0,T=0,lastIdx=-1,camZ=14,vel=0,lastY=scrollY;
 const clock=new THREE.Clock(),dummy=new THREE.Object3D(),ta=[0,0,0],tb=[0,0,0];
@@ -947,6 +995,10 @@ function frame(){
     if(vq>=0){pA=place("ai");vrAcc+=dt*(3+9*clamp01(vq/.12))}}
   if(mp<0)matR.emissiveIntensity=.75+1.1*(vq>=0?clamp01((vq-.45)/.2):vrW);   // ember burns hotter once it is part of the headset
 
+  // Signal Shot only while WEB, AI or the headset sits still: no transition, between holds or fast scrolling
+  {const nm=names[k],stable=entered&&mp<0&&vq<0&&f===0&&(nm==="web"||nm==="ai"||nm==="vr")&&vel<.3&&!(MS.snapT>=0&&T-MS.snapT<SEQ+.6);sigUpdate(stable,dt,nm)}
+  const sgOn=SIG.n>0&&mp<0&&vq<0;
+
   // camera: dolly through the tunnel during the manifesto
   const tunnelI=names.indexOf("tunnel");let tunnelW=0,dolly=0;
   if(entered){if(k===tunnelI){tunnelW=1-f;dolly=st.p}else if(k2===tunnelI&&f>0){tunnelW=f;dolly=0}}
@@ -984,6 +1036,8 @@ function frame(){
         tx+=Math.sin(T*.8+PH[i])*.012;ty+=Math.cos(T*.7+PH[i])*.012;
         k2s=RED[i]?stiff*(1-.6*wordW):stiff;    // ember shards move at an easy pace inside words
       }
+      let sg=1;
+      if(sgOn){let w=0;for(let q=0;q<SIG.n;q++){const dx=P[j]-SX[q];w+=Math.exp(-dx*dx/.15)}sg=1+(RED[i]?1.2:.18)*Math.min(1,w)}   // what lies beneath lights up as a star passes over
       let vx=V[j],vy=V[j+1],vz=V[j+2];
       if(kick&&bs>0){const ex=tx-SPw[0],ey=ty-SPw[1],ez=tz-SPw[2],el=Math.hypot(ex,ey,ez)||1,sp0=5+R()*4;vx+=ex/el*sp0;vy+=ey/el*sp0;vz+=ez/el*sp0}   // shockwave burst
       vx+=(tx-P[j])*k2s*dt;vy+=(ty-P[j+1])*k2s*dt;vz+=(tz-P[j+2])*k2s*dt;
@@ -993,11 +1047,11 @@ function frame(){
       const sp=Math.sqrt(vx*vx+vy*vy+vz*vz);
       ANG[i]=ANG[i]*Math.exp(-(RM?6:tS>.3?7:2.2)*dt)+sp*dt*(RM?0:3)*(1-tunnelW);
       const a=ANG[i];dummy.position.set(P[j],P[j+1],P[j+2]);dummy.rotation.set(AX[j]*a,AX[j+1]*a,AX[j+2]*a);
-      const base=bs>=0?bs:(RED[i]?1.25*(1-wordW+wordW*(FUSE(i)?.55+.5*Math.abs(Math.sin(T*1.2+PH[i]*3)):0)):1-.3*wordW)*(VX?1-vrW*(RED[i]?.5:1-.48*VX.SC[i]):1);const zs=1+tunnelW*(5+Math.min(20,vel*6))+stretchBase*.4;dummy.scale.set(base,base,base*zs);
+      const base=bs>=0?bs:(RED[i]?1.25*(1-wordW+wordW*(FUSE(i)?.55+.5*Math.abs(Math.sin(T*1.2+PH[i]*3)):0)):1-.3*wordW)*(VX?1-vrW*(RED[i]?.5:1-.48*VX.SC[i]):1);const zs=1+tunnelW*(5+Math.min(20,vel*6))+stretchBase*.4;const bb=base*sg;dummy.scale.set(bb,bb,bb*zs);
       if(sub===SUB-1){dummy.updateMatrix();(RED[i]?meshR:meshW).setMatrixAt(MI[i],dummy.matrix)}
     }
     if(sub<SUB-1)continue;
-    meshW.instanceMatrix.needsUpdate=true;meshR.instanceMatrix.needsUpdate=true;
+    meshW.instanceMatrix.needsUpdate=true;meshR.instanceMatrix.needsUpdate=true;sigDraw();
     disturb+=hits*dt*.35;while(disturb>1){disturb-=1;Score.glass(mouse.x,.6+R()*.5)}if(disturb>3)disturb=3;
   }
   if(renderer){
