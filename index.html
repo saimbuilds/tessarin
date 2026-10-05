@@ -46,35 +46,20 @@ em{font-family:var(--f-accent);font-style:italic;font-weight:400;letter-spacing:
 /* ---------- letterbox ---------- */
 .lb{position:fixed;left:0;right:0;z-index:30;background:var(--void);display:flex;align-items:center;gap:16px;padding-inline:var(--gut);transition:height 1.6s var(--ease)}
 .lb-top{top:0;height:50vh;padding-top:env(safe-area-inset-top,0px);align-items:flex-end;padding-bottom:12px;justify-content:space-between}
-.lb-bot{bottom:0;height:50vh;padding-bottom:env(safe-area-inset-bottom,0px);align-items:flex-start;padding-top:14px;justify-content:space-between;color:var(--smoke)}
+.lb-bot{bottom:0;height:50vh;padding-bottom:env(safe-area-inset-bottom,0px);align-items:flex-start;padding-top:14px;justify-content:center;color:var(--smoke)}
 body.open .lb-top{height:calc(var(--lb-top) + env(safe-area-inset-top,0px))}
 body.open .lb-bot{height:calc(var(--lb-bot) + env(safe-area-inset-bottom,0px))}
 .lb>*{opacity:0;transition:opacity .8s 1s}
 body.open .lb>*{opacity:1}
 .lb-mark img{height:18px;width:auto;display:block}
-.scene-lbl{display:flex;align-items:center;gap:10px;color:var(--bone);min-width:0}
-.rec{width:7px;height:7px;border-radius:50%;background:var(--ember);box-shadow:0 0 12px var(--ember-glow);animation:rec 1.6s steps(1) infinite}
-@keyframes rec{50%{opacity:.15}}
 .lb-right{display:flex;gap:10px;align-items:center}
 .btn{font-family:var(--f-mono);font-size:var(--t-xs);letter-spacing:.1em;text-transform:uppercase;font-stretch:87.5%;display:inline-flex;align-items:center;gap:10px;padding:11px 16px;border-radius:999px;border:1px solid var(--hairline);background:transparent;color:var(--bone);cursor:pointer;transition:background .3s,color .3s,border-color .3s;white-space:nowrap}
 .btn:hover{border-color:var(--bone)}
 .btn.primary{background:var(--ember);border-color:var(--ember);color:var(--void)}
 .btn.primary:hover{background:var(--bone);border-color:var(--bone)}
-.eq{display:inline-flex;gap:2px;align-items:flex-end;height:10px}
-.eq b{width:2px;height:25%;background:currentColor}
-.sound-on .eq b{animation:eq .9s ease-in-out infinite}
-.sound-on .eq b:nth-child(2){animation-delay:-.35s}.sound-on .eq b:nth-child(3){animation-delay:-.6s}.sound-on .eq b:nth-child(4){animation-delay:-.15s}
-@keyframes eq{0%,100%{height:25%}50%{height:100%}}
-.tc{font-variant-numeric:tabular-nums;color:var(--bone)}
 .ticks{display:flex;gap:6px;align-items:center}
 .ticks i{width:18px;height:2px;background:var(--hairline);transition:background .4s,width .4s}
 .ticks i.on{background:var(--ember);width:30px}
-.fmt{text-align:right}
-
-/* ---------- captions ---------- */
-.caption{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(var(--lb-bot) + env(safe-area-inset-bottom,0px) + 14px);z-index:31;max-width:min(86ch,calc(100vw - 2*var(--gut)));text-align:center;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.03em;line-height:1.5;color:var(--bone);background:rgba(0,0,0,.55);padding:6px 10px;opacity:0;transition:opacity .5s;pointer-events:none;font-stretch:87.5%}
-.caption.show{opacity:1}
-.caption .cue{color:var(--smoke);margin-right:.6em;font-style:italic}
 
 /* ---------- cursor: viewfinder that locks onto targets ---------- */
 .vf{position:fixed;left:0;top:0;z-index:60;pointer-events:none;width:28px;height:28px;opacity:0;transition:opacity .3s}
@@ -146,10 +131,11 @@ main{position:relative;z-index:10}
 .manifesto .wd.lit{opacity:1}
 .manifesto em{text-transform:none;font-size:1.06em}
 .manifesto em.wd.lit{color:var(--ember)}
-.tunnel-tag{position:absolute;left:var(--gut);top:calc(var(--lb-top) + 24px);color:var(--smoke)}
 
 /* capability scenes */
 .s-cap{height:190vh}
+.morph-gap{height:260vh}   /* scroll room for the WEB → AI transition */
+.morph-gap.vr-gap{height:340vh}   /* and for AI → VR */
 .bigword{position:absolute;left:50%;top:50%;transform:translate(-50%,-56%);font-family:var(--f-display);font-weight:900;font-size:clamp(5rem,30vw,32rem);line-height:.8;letter-spacing:-.06em;color:transparent;-webkit-text-stroke:1px rgba(237,234,228,.22);white-space:nowrap;pointer-events:none;user-select:none}
 .cap-grid{position:absolute;inset:0;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:24px}
 .card{display:grid;gap:16px;max-width:34rem;min-width:0}
@@ -174,6 +160,7 @@ h2.t em{font-size:1.04em}
 .frame::after{bottom:6px;height:8px}
 .frame canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.95}
 .frame .f-top,.frame .f-bot{position:relative;display:flex;justify-content:space-between;gap:10px;color:var(--smoke)}
+.frame .f-top{justify-content:flex-end}
 .frame .f-bot{display:grid;gap:6px}
 .frame h3{position:relative;margin:0;font-family:var(--f-accent);font-style:italic;font-weight:400;font-size:clamp(2.2rem,4vw,3.4rem);line-height:.95;letter-spacing:-.02em;color:var(--bone)}
 .frame p{margin:0;font-weight:300;color:#cdc9c2;font-size:.9rem;max-width:30ch}
@@ -213,9 +200,6 @@ h2.t em{font-size:1.04em}
 
 /* phones */
 @media (max-width:760px){
-  .lb-top .scene-lbl{display:none}
-  .lb-bot .fmt{display:none}
-  .lb-right .btn.sound .lbl{display:none}
   .mega em{margin-left:8vw}
   .cap-grid{grid-template-columns:1fr;align-content:end}
   .tags{justify-items:start;text-align:left;display:flex;flex-wrap:wrap;gap:6px 14px}
@@ -224,13 +208,12 @@ h2.t em{font-size:1.04em}
   .bigword{top:38%}
   .steps{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:16px}
   .board-body div{padding:10px}
-  .caption{font-size:.64rem}
   .pad{padding-bottom:calc(var(--lb-bot) + 100px)}
   .s-hero .pad{padding-bottom:calc(var(--lb-bot) + 110px)}
 }
 @media (prefers-reduced-motion:reduce){
   .split .ch,.fade{transform:none!important;opacity:1!important;transition:none}
-  .rec,.scrollcue i::after{animation:none}
+  .scrollcue i::after{animation:none}
   .stick{transition:none}
 }
 </style>
@@ -242,18 +225,13 @@ h2.t em{font-size:1.04em}
 
 <header class="lb lb-top" id="lbTop">
   <a class="lb-mark" href="#top" data-lock aria-label="Tessarin, back to the opening"><img src="brand/tessarin-logo.png" alt="Tessarin"></a>
-  <div class="scene-lbl mono" aria-live="polite"><span class="rec" aria-hidden="true"></span><span id="sceneLbl">SC.00 — Slate</span></div>
   <div class="lb-right">
-    <button class="btn sound" id="soundBtn" type="button" aria-pressed="false" data-lock><span class="eq" aria-hidden="true"><b></b><b></b><b></b><b></b></span><span class="lbl" id="soundLbl">Score off</span></button>
     <a class="btn primary" href="https://cal.com/tessarin" target="_blank" rel="noopener" data-lock data-sfx>Book a call</a>
   </div>
 </header>
 <div class="lb lb-bot mono" aria-hidden="true">
-  <span class="tc" id="tc">TC 00:00:00:00</span>
   <div class="ticks" id="ticks"></div>
-  <span class="fmt">2.39 : 1 · 24 FPS · Score in D minor</span>
 </div>
-<div class="caption" id="caption" aria-hidden="true"><span class="cue" id="cue"></span><span id="capTxt"></span></div>
 
 <div class="slate" id="slate" role="dialog" aria-modal="true" aria-label="Tessarin opening slate">
   <div class="slate-top mono"><img src="brand/tessarin-logo.png" alt="Tessarin"><span>Showreel · MMXXVI</span></div>
@@ -283,7 +261,7 @@ h2.t em{font-size:1.04em}
 </div>
 
 <main id="top">
-  <section class="scene s-hero" data-form="logo" data-name="Title" data-mix="hero" data-cue="[low strings swell]" data-cap="A studio for websites, AI and the technology that comes next.">
+  <section class="scene s-hero" data-form="logo" data-name="Title" data-mix="hero">
     <div class="pad">
       <h1 class="mega split">Future,<br><em>assembled<span class="dot">.</span></em></h1>
       <div class="hero-meta mono fade">
@@ -294,52 +272,55 @@ h2.t em{font-size:1.04em}
     </div>
   </section>
 
-  <section class="scene s-tunnel" data-form="tunnel" data-name="Manifesto" data-mix="tunnel" data-cue="[the camera flies through the logo]" data-cap="Small pieces. One picture.">
+  <section class="scene s-tunnel" data-form="tunnel" data-name="Manifesto" data-mix="tunnel">
     <div class="sticky">
-      <span class="tunnel-tag mono">SC.02 — Manifesto</span>
       <p class="manifesto" id="manifesto">We are young. We are fast. We are <em>unreasonably</em> technical. Give us the hard part: the interface, the intelligence, the infrastructure. We snap together around it and ship work that feels like it came from a few years <em>ahead.</em></p>
     </div>
   </section>
 
-  <section class="scene s-cap" data-form="browser" data-name="Web" data-mix="web" data-cue="[a browser assembles itself]" data-cap="Sites and products that feel alive.">
-    <div class="sticky"><div class="bigword" aria-hidden="true">WEB</div>
+  <section class="scene s-cap" data-form="web" data-name="Web" data-mix="web">
+    <div class="sticky">
       <div class="cap-grid pad">
-        <div class="card"><div class="eyebrow mono">SC.03 — Web</div><h2 class="t split">Sites that feel <em>alive.</em></h2><p class="body fade">Marketing sites people remember and web apps people actually use. Fast on a mid-range phone, beautiful on a 5K screen.</p></div>
+        <div class="card"><h2 class="t split">Sites that feel <em>alive.</em></h2><p class="body fade">Marketing sites people remember and web apps people actually use. Fast on a mid-range phone, beautiful on a 5K screen.</p></div>
         <ul class="tags mono fade"><li>Next.js</li><li>React</li><li>Design systems</li><li>E-commerce</li><li>SaaS dashboards</li></ul>
       </div></div>
   </section>
 
-  <section class="scene s-cap" data-form="neural" data-name="AI" data-mix="ai" data-cue="[signals fire between nodes]" data-cap="AI that does real work.">
-    <div class="sticky"><div class="bigword" aria-hidden="true">AI</div>
+  <div class="morph-gap" aria-hidden="true"></div>
+
+  <section class="scene s-cap" data-form="ai" data-name="AI" data-mix="ai">
+    <div class="sticky">
       <div class="cap-grid pad">
-        <div class="card"><div class="eyebrow mono">SC.04 — Artificial intelligence</div><h2 class="t split">AI that does <em>real work.</em></h2><p class="body fade">Agents that answer customers, search your documents and automate the slow parts of your operations, wired into the tools you already use.</p></div>
+        <div class="card"><h2 class="t split">AI that does <em>real work.</em></h2><p class="body fade">Agents that answer customers, search your documents and automate the slow parts of your operations, wired into the tools you already use.</p></div>
         <ul class="tags mono fade"><li>LLM agents</li><li>RAG search</li><li>Automation</li><li>Voice</li><li>Integrations</li></ul>
       </div></div>
   </section>
 
-  <section class="scene s-cap" data-form="knot" data-name="Emerging" data-mix="emerging" data-cue="[something new takes shape]" data-cap="Real-time 3D, WebGL and AR.">
+  <div class="morph-gap vr-gap" aria-hidden="true"></div>
+
+  <section class="scene s-cap" data-form="vr" data-name="Emerging" data-mix="emerging">
     <div class="sticky"><div class="bigword" aria-hidden="true">NEW</div>
       <div class="cap-grid pad">
-        <div class="card"><div class="eyebrow mono">SC.05 — Emerging tech</div><h2 class="t split">The stuff that's <em>still new.</em></h2><p class="body fade">WebGL worlds, 3D product viewers, AR try-ons and interactive installations. If it sits on the edge of what a browser can do, we want it.</p></div>
+        <div class="card"><h2 class="t split">The stuff that's <em>still new.</em></h2><p class="body fade">WebGL worlds, 3D product viewers, AR try-ons and interactive installations. If it sits on the edge of what a browser can do, we want it.</p></div>
         <ul class="tags mono fade"><li>Three.js</li><li>Shaders</li><li>AR</li><li>Real-time 3D</li><li>Spatial UI</li></ul>
       </div></div>
   </section>
 
-  <section class="scene s-reel" id="reel" data-form="dust" data-name="Reel" data-mix="reel" data-cue="[film reel advances]" data-cap="Selected work. Real case studies arrive soon.">
+  <section class="scene s-reel" id="reel" data-form="dust" data-name="Reel" data-mix="reel">
     <div class="sticky">
-      <div class="reel-head"><div class="card"><div class="eyebrow mono">SC.06 — Reel</div><h2 class="t split">Selected <em>frames.</em></h2></div><span class="mono" style="color:var(--smoke)">Scroll to advance the reel →</span></div>
+      <div class="reel-head"><div class="card"><h2 class="t split">Selected <em>frames.</em></h2></div><span class="mono" style="color:var(--smoke)">Scroll to advance the reel →</span></div>
       <div class="reel-view"><div class="track" id="track">
-        <a class="frame" href="#reel" data-lock data-art="topo"><canvas></canvas><div class="f-top mono"><span>FR.0001</span><span class="flag">Sample</span></div><div></div><div class="f-bot"><h3>Atlas</h3><span class="mono">AI · Support agent</span><p>An agent that answers most support tickets before a person has to.</p></div></a>
-        <a class="frame" href="#reel" data-lock data-art="seats"><canvas></canvas><div class="f-top mono"><span>FR.0002</span><span class="flag">Sample</span></div><div></div><div class="f-bot"><h3>Mehfil</h3><span class="mono">Web · Event platform</span><p>Live seat maps and payments for a city's busiest venues.</p></div></a>
-        <a class="frame" href="#reel" data-lock data-art="orbit"><canvas></canvas><div class="f-top mono"><span>FR.0003</span><span class="flag">Sample</span></div><div></div><div class="f-bot"><h3>Orbit</h3><span class="mono">3D · Product configurator</span><p>A furniture catalogue you can spin, recolour and place in your room.</p></div></a>
-        <a class="frame yours" href="https://cal.com/tessarin" target="_blank" rel="noopener" data-lock><span class="mono" style="color:var(--ember)">FR.0004 — Unexposed</span><h3>Your project</h3><span class="btn primary">Book a call</span></a>
+        <a class="frame" href="#reel" data-lock data-art="topo"><canvas></canvas><div class="f-top mono"><span class="flag">Sample</span></div><div></div><div class="f-bot"><h3>Atlas</h3><span class="mono">AI · Support agent</span><p>An agent that answers most support tickets before a person has to.</p></div></a>
+        <a class="frame" href="#reel" data-lock data-art="seats"><canvas></canvas><div class="f-top mono"><span class="flag">Sample</span></div><div></div><div class="f-bot"><h3>Mehfil</h3><span class="mono">Web · Event platform</span><p>Live seat maps and payments for a city's busiest venues.</p></div></a>
+        <a class="frame" href="#reel" data-lock data-art="orbit"><canvas></canvas><div class="f-top mono"><span class="flag">Sample</span></div><div></div><div class="f-bot"><h3>Orbit</h3><span class="mono">3D · Product configurator</span><p>A furniture catalogue you can spin, recolour and place in your room.</p></div></a>
+        <a class="frame yours" href="https://cal.com/tessarin" target="_blank" rel="noopener" data-lock><span class="mono" style="color:var(--ember)">Unexposed</span><h3>Your project</h3><span class="btn primary">Book a call</span></a>
       </div></div>
     </div>
   </section>
 
-  <section class="scene s-proc" data-form="helix" data-name="Process" data-mix="process" data-cue="[clock ticking]" data-cap="From first call to launch.">
+  <section class="scene s-proc" data-form="helix" data-name="Process" data-mix="process">
     <div class="sticky"><div class="pad">
-      <div class="card"><div class="eyebrow mono">SC.07 — Process</div><h2 class="t split">First call <em>to launch.</em></h2></div>
+      <div class="card"><h2 class="t split">First call <em>to launch.</em></h2></div>
       <div></div>
       <ol class="steps fade">
         <li><span class="k mono">Day 01</span><b>Discover</b><span>One call. Your goal, your users, your deadline.</span></li>
@@ -350,7 +331,7 @@ h2.t em{font-size:1.04em}
     </div></div>
   </section>
 
-  <section class="scene s-credits" id="contact" data-form="ring" data-name="Credits" data-mix="credits" data-cue="[the orchestra resolves]" data-cap="Your project could be the next one.">
+  <section class="scene s-credits" id="contact" data-form="ring" data-name="Credits" data-mix="credits">
     <div class="roll">
       <div class="mono" style="color:var(--ember)">A Tessarin production</div>
       <div><div class="role mono">Web engineering</div><div class="name">Tessarin</div></div>
@@ -535,7 +516,7 @@ const Score=(()=>{
     if(v&&ctx.state==="suspended")ctx.resume();
     master.gain.cancelScheduledValues(t);master.gain.setValueAtTime(master.gain.value,t);master.gain.linearRampToValueAtTime(v?.72:0,t+(v?.6:.4));
   }
-  return {init,setOn,setScene,braam:()=>ctx&&on&&braam(),clack:()=>ctx&&on&&clack(),glass,blip,get on(){return on}};
+  return {init,setOn,setScene,hit:(a=1)=>ctx&&on&&impact(ctx.currentTime,a),braam:()=>ctx&&on&&braam(),clack:()=>ctx&&on&&clack(),glass,blip,get on(){return on}};
 })();
 
 /* =========================================================
@@ -554,12 +535,16 @@ if(renderer){
   composer=new EffectComposer(renderer);
   composer.addPass(new RenderPass(scene,camera));
   bloom=new UnrealBloomPass(new THREE.Vector2(256,256),.55,.5,.62);composer.addPass(bloom);
-  film=new ShaderPass({uniforms:{tDiffuse:{value:null},uTime:{value:0},uCA:{value:.002},uGrain:{value:.055},uRes:{value:new THREE.Vector2(1,1)}},
+  film=new ShaderPass({uniforms:{tDiffuse:{value:null},uTime:{value:0},uCA:{value:.002},uGrain:{value:.055},uRes:{value:new THREE.Vector2(1,1)},uShock:{value:new THREE.Vector3(.5,.5,0)},uShockA:{value:0},uAspect:{value:1}},
     vertexShader:`varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
-    fragmentShader:`uniform sampler2D tDiffuse;uniform float uTime,uCA,uGrain;uniform vec2 uRes;varying vec2 vUv;
+    fragmentShader:`uniform sampler2D tDiffuse;uniform float uTime,uCA,uGrain,uShockA,uAspect;uniform vec2 uRes;uniform vec3 uShock;varying vec2 vUv;
       float h(vec2 p){return fract(sin(dot(p,vec2(12.9898,78.233)))*43758.5453);}
-      void main(){vec2 d=vUv-.5;float r=length(d);vec2 o=d*uCA*(.6+r*2.2);
-        vec3 c=vec3(texture2D(tDiffuse,vUv+o).r,texture2D(tDiffuse,vUv).g,texture2D(tDiffuse,vUv-o).b);
+      void main(){vec2 uv=vUv;
+        // pressure wave: a ring that bends the image outward, never drawn itself
+        if(uShockA>0.){vec2 sd=vUv-uShock.xy;sd.x*=uAspect;float sr=length(sd);float ring=exp(-pow((sr-uShock.z)/.07,2.));
+          uv-=(sr>0.?sd/sr:vec2(0.))*vec2(1./uAspect,1.)*ring*uShockA;}
+        vec2 d=uv-.5;float r=length(d);vec2 o=d*uCA*(.6+r*2.2);
+        vec3 c=vec3(texture2D(tDiffuse,uv+o).r,texture2D(tDiffuse,uv).g,texture2D(tDiffuse,uv-o).b);
         c*=smoothstep(1.05,.28,r);
         float g=h(floor(vUv*uRes)+fract(uTime*7.3)*91.)-.5;c+=g*uGrain;
         gl_FragColor=vec4(c,1.);}`});
@@ -583,34 +568,46 @@ let meshW,meshR;
 
 /* ---------- formations ---------- */
 function fill(fn){const a=new Float32Array(N*3);for(let i=0;i<N;i++){const p=fn(i);a[i*3]=p[0];a[i*3+1]=p[1];a[i*3+2]=p[2]}return a}
-function segSampler(segs){const L=segs.map(s=>Math.hypot(s[3]-s[0],s[4]-s[1],s[5]-s[2]));const tot=L.reduce((a,b)=>a+b,0);const cum=[];let c=0;for(const l of L){c+=l;cum.push(c/tot)}
-  return()=>{const r=R();let k=0;while(k<cum.length-1&&cum[k]<r)k++;const s=segs[k],t=R();return[s[0]+(s[3]-s[0])*t,s[1]+(s[4]-s[1])*t,s[2]+(s[5]-s[2])*t]}}
-const jit=(p,a)=>[p[0]+(R()-.5)*a,p[1]+(R()-.5)*a,p[2]+(R()-.5)*a];
 const F={};
 F.scatter=fill(()=>[(R()-.5)*24,(R()-.5)*14,(R()-.5)*10-2]);
 F.tunnel=fill(()=>{const a=R()*6.283,r=2.3+Math.pow(R(),.7)*4.2;return[Math.cos(a)*r,Math.sin(a)*r*.8,-36+R()*46]});
 F.dust=fill(()=>[(R()-.5)*22,(R()-.5)*12,-4-R()*10]);
-F.browser=(()=>{const w=2.7,h=1.85,segs=[[-w,-h,0,w,-h,0],[w,-h,0,w,h,0],[w,h,0,-w,h,0],[-w,h,0,-w,-h,0],[-w,h-.42,0,w,h-.42,0]];
-  const lines=[[.35,.75,1.9],[.35,.45,1.55],[.35,.15,1.2],[-2.3,-.75,3.4],[-2.3,-1.05,3],[-2.3,-1.35,2.4]];
-  const edge=segSampler(segs),txt=segSampler(lines.map(([x,y,l])=>[x,y,0,x+l,y,0]));
-  return fill(()=>{const r=R();
-    if(r<.34)return jit(edge(),.03);
-    if(r<.40){const d=Math.floor(R()*3),a=R()*6.283,rr=Math.sqrt(R())*.09;return[-w+.3+d*.28+Math.cos(a)*rr,h-.21+Math.sin(a)*rr,0]}
-    if(r<.68)return[-2.35+R()*2.4,-.45+R()*1.35,(R()-.5)*.05];
-    if(r<.74)return[-2.3+R()*1.2,-1.75+R()*.22,0];
-    return jit(txt(),.03)})})();
-F.neural=(()=>{const layers=[4,6,6,3],xs=[-2.5,-.85,.85,2.5];const nodes=[];
-  layers.forEach((n,li)=>{for(let k=0;k<n;k++)nodes.push([xs[li],(k-(n-1)/2)*.68,(R()-.5)*1.4,li])});
-  const edges=[];for(const a of nodes)for(const b of nodes)if(b[3]===a[3]+1)edges.push([a[0],a[1],a[2],b[0],b[1],b[2]]);
-  const e=segSampler(edges);
-  return fill(()=>{if(R()<.36){const n=nodes[Math.floor(R()*nodes.length)];const u=R()*6.283,v=Math.acos(2*R()-1),r=.16*Math.cbrt(R());return[n[0]+r*Math.sin(v)*Math.cos(u),n[1]+r*Math.sin(v)*Math.sin(u),n[2]+r*Math.cos(v)]}return jit(e(),.025)})})();
-F.knot=fill(()=>{const p=2,q=3,t=R()*Math.PI*2,sc=.8,r=2+Math.cos(q*t);const a=[r*Math.cos(p*t)*sc,r*Math.sin(p*t)*sc,-Math.sin(q*t)*sc*1.2];
-  const u=R()*6.283,v=Math.acos(2*R()-1),rr=.34*(.8+R()*.2);return[a[0]+rr*Math.sin(v)*Math.cos(u),a[1]+rr*Math.sin(v)*Math.sin(u),a[2]+rr*Math.cos(v)]});
+// scene words (WEB, AI) set in the display face; white shards trace the letter outlines,
+// ember shards churn inside the letters like a reaction (FI = interior points)
+const FI={},FIN=1200,WORDW={},wordMax=()=>Math.max(...Object.values(WORDW));
+function sampleWord(name,word,capH){
+  const fs=220,c=document.createElement("canvas"),x=c.getContext("2d",{willReadFrequently:true});
+  const font=`900 ${fs}px Unbounded, "Arial Black", sans-serif`,ls=`${-.06*fs}px`;
+  x.font=font;x.letterSpacing=ls;const W=Math.ceil(x.measureText(word).width)+fs*.4,H=Math.ceil(fs*1.3);
+  c.width=W;c.height=H;x.font=font;x.letterSpacing=ls;x.fillStyle="#fff";x.textBaseline="middle";x.fillText(word,fs*.2,H/2);
+  const d=x.getImageData(0,0,W,H).data,pts=[],inner=[];let x0=W,x1=0,y0=H,y1=0;
+  const ink=(xx,y)=>xx>=0&&y>=0&&xx<W&&y<H&&d[(y*W+xx)*4+3]>=128;
+  for(let y=0;y<H;y++)for(let xx=0;xx<W;xx++){if(!ink(xx,y))continue;if(xx<x0)x0=xx;if(xx>x1)x1=xx;if(y<y0)y0=y;if(y>y1)y1=y;
+    if(!ink(xx-1,y)||!ink(xx+1,y)||!ink(xx,y-1)||!ink(xx,y+1))pts.push([xx,y]);
+    else if(ink(xx-7,y)&&ink(xx+7,y)&&ink(xx,y-7)&&ink(xx,y+7))inner.push([xx,y])}
+  if(!pts.length) return;
+  const S=capH/Math.max(1,y1-y0),cx=(x0+x1)/2,cy=(y0+y1)/2;WORDW[name]=(x1-x0)*S;
+  WB[name]=[...word].slice(1).map((_,k)=>(fs*.2+x.measureText(word.slice(0,k+1)).width-cx)*S);   // x where each letter ends
+  F[name]=fill(()=>{const p=pts[Math.floor(R()*pts.length)];return[(p[0]-cx)*S+(R()-.5)*.01,-(p[1]-cy)*S+(R()-.5)*.01,(R()-.5)*.04]});
+  if(!inner.length) return;const q=new Float32Array(FIN*3);
+  for(let k=0;k<FIN;k++){const p=inner[Math.floor(R()*inner.length)];q[k*3]=(p[0]-cx)*S;q[k*3+1]=-(p[1]-cy)*S;q[k*3+2]=(R()-.5)*.3}
+  FI[name]=q;
+  // neighbours within reach of each interior point, so wandering shards take short hops and stay inside the letter
+  const nb=[];for(let a=0;a<FIN;a++){const l=[];for(let b=0;b<FIN;b++){if(a===b)continue;const dx=q[a*3]-q[b*3],dy=q[a*3+1]-q[b*3+1],d2=dx*dx+dy*dy;if(d2<.12&&d2>.01)l.push(b)}nb.push(l)}
+  NB[name]=nb;WS[name]={idx:Uint16Array.from({length:N},()=>Math.floor(R()*FIN)),next:new Float32Array(N)};
+}
+// Ember shards wander inside a word without settling: each heads for a nearby interior point and picks
+// the next one every 0.5-1.1s. Only ~40% of ember shards show inside a word (FUSE); the rest fade out.
+const NB={},WS={},WB={},FUSE=i=>PH[i]<2.5;
+let HOPF=1;   // hop interval scale; shrinks while WEB wakes up
+function aim(name,i,j,o){const q=RED[i]&&FI[name];if(q){const st=WS[name];if(T>st.next[i]){const l=NB[name][st.idx[i]];st.idx[i]=l.length?l[Math.floor(R()*l.length)]:Math.floor(R()*FIN);st.next[i]=T+(.5+R()*.6)*HOPF}
+    const k=st.idx[i]*3;o[0]=q[k];o[1]=q[k+1];o[2]=q[k+2]}else{const a=F[name]||F.scatter;o[0]=a[j];o[1]=a[j+1];o[2]=a[j+2]}return o}
+function buildWords(){sampleWord("web","WEB",2.1);sampleWord("ai","AI",2.1)}
 F.helix=fill(()=>{const t=(R()-.5)*7,r=.95;if(R()<.22){const k=Math.round(t/.4)*.4,a=k*1.7,f=R()*2-1;return[k,Math.cos(a)*r*f,Math.sin(a)*r*f]}
   const s=R()<.5?0:Math.PI,a=t*1.7+s;return[t,Math.cos(a)*r+(R()-.5)*.08,Math.sin(a)*r+(R()-.5)*.08]});
 F.ring=fill(()=>{if(R()<.14)return[(R()-.5)*16,(R()-.5)*10,(R()-.5)*6-2];const a=R()*6.283,v=R()*6.283,rr=.24*Math.sqrt(R()),R0=5;return[(R0+rr*Math.cos(v))*Math.cos(a),(R0*.72+rr*Math.cos(v))*Math.sin(a),rr*Math.sin(v)]});
 // [y offset desktop, scale desktop, motion]
-const PLACE={scatter:[0,1,"drift"],logo:[2.3,.9,"none"],tunnel:[0,1,"tunnel"],dust:[0,1,"drift"],browser:[.35,1,"sway"],neural:[.35,1,"sway"],knot:[.3,1,"spin"],helix:[1.15,.95,"roll"],ring:[0,1,"ringspin"]};
+const PLACE={scatter:[0,1,"drift"],logo:[2.3,.9,"none"],tunnel:[0,1,"tunnel"],dust:[0,1,"drift"],web:[1.1,1,"tilt"],ai:[1.1,1,"tilt"],vr:[0,1,"none"],helix:[1.15,.95,"roll"],ring:[0,1,"ringspin"]};
 
 function sampleLogo(img){
   const c=document.createElement("canvas"),W=img.naturalWidth,H=img.naturalHeight;c.width=W;c.height=H;const x=c.getContext("2d",{willReadFrequently:true});x.drawImage(img,0,0);
@@ -636,7 +633,7 @@ function measure(){const vh=innerHeight;holds=scenes.map(s=>{const top=s.getBoun
 const sstep=(t)=>{t=Math.min(1,Math.max(0,t));return t*t*(3-2*t)};
 function readScroll(y){
   for(let i=0;i<holds.length;i++){const[a,b]=holds[i];
-    if(y<a){if(i===0)return{k:0,f:0,p:0};const pb=holds[i-1][1];return{k:i-1,f:sstep((y-pb)/Math.max(1,a-pb)),p:1}}
+    if(y<a){if(i===0)return{k:0,f:0,p:0};const pb=holds[i-1][1];const r=Math.min(1,Math.max(0,(y-pb)/Math.max(1,a-pb)));return{k:i-1,f:sstep(r),p:1,r}}
     if(y<=b)return{k:i,f:0,p:b>a?(y-a)/(b-a):0}}
   return{k:holds.length-1,f:0,p:1};
 }
@@ -648,18 +645,19 @@ document.addEventListener("pointerleave",()=>mouse.active=false);
 
 let visW=1,visH=1;
 function resize(){
-  if(renderer){renderer.setSize(innerWidth,innerHeight,false);composer.setSize(innerWidth,innerHeight);const pr=renderer.getPixelRatio();bloom.resolution.set(innerWidth*(LOW?.35:.5),innerHeight*(LOW?.35:.5));film.uniforms.uRes.value.set(innerWidth*pr,innerHeight*pr)}
+  if(renderer){renderer.setSize(innerWidth,innerHeight,false);composer.setSize(innerWidth,innerHeight);const pr=renderer.getPixelRatio();bloom.resolution.set(innerWidth*(LOW?.35:.5),innerHeight*(LOW?.35:.5));film.uniforms.uRes.value.set(innerWidth*pr,innerHeight*pr);film.uniforms.uAspect.value=innerWidth/innerHeight}
   camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();
   visH=2*14*Math.tan(THREE.MathUtils.degToRad(camera.fov/2));visW=visH*camera.aspect;
   sizeReel();measure();
 }
+let VRX=0;   // world x of the headset centre
 function place(name){const p=PLACE[name]||PLACE.scatter;
-  if(phone()){const s=Math.min(1,visW/(name==="logo"?10.4:7.4));return[name==="logo"?2.0:(name==="ring"||name==="tunnel"||name==="dust"||name==="scatter"?0:1.55),(name==="ring"?Math.min(1,visW/10.4):s*(name==="knot"?.85:1))]}
-  const s=Math.min(1.1,Math.max(.75,visW/15.6));return[p[0],s*p[1]]}
+  if(name==="vr"){const ph=phone();VRX=(ph?-.1:.06)*visW;return[ph?.17*visH:-.02*visH,Math.min(1.6,Math.max(.4,(ph?.15:.105)*visW))]}
+  if(phone()){const s=Math.min(1,visW/(name==="logo"?10.4:WORDW[name]?wordMax()+1.2:7.4));return[name==="logo"?2.0:(name==="ring"||name==="tunnel"||name==="dust"||name==="scatter"?0:1.55),(name==="ring"?Math.min(1,visW/10.4):s)]}
+  let s=Math.min(1.1,Math.max(.75,visW/15.6));if(WORDW[name])s=Math.min(s,visW*.62/wordMax());return[p[0],s*p[1]]}
 function xform(name,i,x,y,z,t,o){
   const m=(PLACE[name]||PLACE.scatter)[2];
-  if(m==="sway"){const a=Math.sin(t*.35)*.5,c=Math.cos(a),s=Math.sin(a);const nx=x*c+z*s;z=-x*s+z*c;x=nx}
-  else if(m==="spin"){const a=t*.32,c=Math.cos(a),s=Math.sin(a);let nx=x*c+z*s;z=-x*s+z*c;x=nx;const b=.35,cb=Math.cos(b),sb=Math.sin(b);const ny=y*cb-z*sb;z=y*sb+z*cb;y=ny}
+  if(m==="tilt"){const a=Math.sin(t*.35)*.22,c=Math.cos(a),s=Math.sin(a);const nx=x*c+z*s;z=-x*s+z*c;x=nx}
   else if(m==="roll"){const a=t*.5,c=Math.cos(a),s=Math.sin(a);const ny=y*c-z*s;z=y*s+z*c;y=ny;const b=-.3,cb=Math.cos(b),sb=Math.sin(b);const nx=x*cb-y*sb;y=x*sb+y*cb;x=nx}
   else if(m==="ringspin"){const a=t*.07,c=Math.cos(a),s=Math.sin(a);const nx=x*c-y*s;y=x*s+y*c;x=nx}
   else if(m==="drift"){x+=Math.sin(t*.13+PH[i])*.5;y+=Math.cos(t*.11+PH[i]*1.7)*.35}
@@ -667,16 +665,9 @@ function xform(name,i,x,y,z,t,o){
   o[0]=x;o[1]=y;o[2]=z;
 }
 
-/* ---------- UI: captions, labels, ticks, timecode ---------- */
-const sceneLbl=$("#sceneLbl"),cue=$("#cue"),capTxt=$("#capTxt"),caption=$("#caption"),tcEl=$("#tc"),ticks=$("#ticks");
+/* ---------- UI: scene ticks ---------- */
+const ticks=$("#ticks");
 scenes.forEach(()=>ticks.appendChild(document.createElement("i")));
-let capTimer=null;
-function setCaption(s){
-  clearInterval(capTimer);caption.classList.remove("show");
-  setTimeout(()=>{cue.textContent=s.dataset.cue||"";capTxt.textContent="";caption.classList.add("show");const txt=s.dataset.cap||"";let i=0;
-    capTimer=setInterval(()=>{capTxt.textContent=txt.slice(0,++i);if(i>=txt.length)clearInterval(capTimer)},RM?0:22)},300);
-}
-function scramble(el,txt){if(RM){el.textContent=txt;return}const G="<>/#01+*—";let n=0;const iv=setInterval(()=>{n++;el.textContent=txt.split("").map((c,i)=>i<n*2||c===" "?c:G[Math.floor(R()*G.length)]).join("");if(n*2>=txt.length){clearInterval(iv);el.textContent=txt}},30)}
 const pad2=n=>String(n).padStart(2,"0");
 
 /* ---------- text splitting ---------- */
@@ -703,8 +694,216 @@ function drawArt(){
   });
 }
 
+/* ---------- WEB → AI transition ----------
+   Scrubbed by scroll through the spacer between the scenes (mp 0→1):
+     0–.20  WEB wakes: ember shards race through the letters, the outline holds still
+     .20–.40 the outline peels off W, E, B in curved ribbons that sweep into the centre
+     .40–.55 vortex: white shards orbit a central axis, ember packets fly down it, camera pushes in
+   At .55 it SNAPS and runs on the clock (tS = seconds since the snap):
+     0–.20  everything collapses into one point between A and I, then a beat of empty screen
+     .20    shockwave; shards burst out into a fleeting network of nodes
+     .26+   ember signals race out along the connections; each branch locks into AI as its signal lands */
+const VCY=.45,SEQ=1.7,NN=14;
+const MS={on:false,t0:0,snapT:-1,kicked:false};
+let MX=null,MK=26,MC=6.5,MSC=1,pW=[0,1],pA=[0,1];
+const SPw=[0,0,0],mtmp=[0,0,0],shockV=new THREE.Vector3();
+const clamp01=t=>Math.min(1,Math.max(0,t));
+function initMorph(){
+  const web=F.web,ai=F.ai,wb=WB.web,gap=WB.ai[0]||0,pw=place("web");
+  const M={DLY:new Float32Array(N),VR:new Float32Array(N),VTH:new Float32Array(N),VZ:new Float32Array(N),VW:new Float32Array(N),
+    NODE:new Uint8Array(N),EU:new Float32Array(N),EJ:new Float32Array(N*3)};
+  // which WEB letter each outline shard belongs to; each letter peels from its top centre outward
+  const lt=i=>{let L=0;while(L<wb.length&&web[i*3]>wb[L])L++;return L};
+  const box=[...Array(wb.length+1)].map(()=>({sx:0,n:0,top:-9}));
+  for(let i=0;i<N;i++){if(RED[i])continue;const b=box[lt(i)];b.sx+=web[i*3];b.n++;b.top=Math.max(b.top,web[i*3+1])}
+  let far=0;const dist=i=>{const b=box[lt(i)];return Math.hypot(web[i*3]-b.sx/Math.max(1,b.n),web[i*3+1]-b.top)};
+  for(let i=0;i<N;i++)if(!RED[i])far=Math.max(far,dist(i));
+  for(let i=0;i<N;i++){
+    M.DLY[i]=RED[i]?.01+R()*.06:.018*lt(i)+.075*dist(i)/Math.max(.001,far);
+    // vortex slot: 80% form a tube orbiting the axis (reads as a tunnel head-on), 20% drift in a wide outer halo
+    const halo=R()<.2;M.VR[i]=halo?3.3+R()*1.4:1.55+.45*R();M.VZ[i]=halo?-4+R()*4:-9+11*R();M.VW[i]=(halo?.25:.9)/(.4+M.VR[i]*.35);
+    // start each orbit just over half a turn ahead of where the shard leaves its letter, so every ribbon curves the same way
+    const a0=Math.atan2(web[i*3+1]*pw[1]+pw[0]-VCY,web[i*3]*pw[1]);M.VTH[i]=a0+Math.PI*(1.15+R()*.2);   // neighbours share a path, so they leave as ribbons
+  }
+  // network: a root at the gap between A and I, plus nodes spread over the AI outline (farthest-point sampling)
+  const orig=[[gap,0,0]];
+  for(let n=0;n<NN;n++){let bj=-1,bd=-1;for(let i=0;i<N;i+=5){if(RED[i])continue;const j=i*3;let dm=1e9;for(const q of orig){const dx=ai[j]-q[0],dy=ai[j+1]-q[1];dm=Math.min(dm,dx*dx+dy*dy)}if(dm>bd){bd=dm;bj=j}}orig.push([ai[bj],ai[bj+1],0])}
+  const NP=new Float32Array((NN+1)*3);orig.forEach((q,n)=>{const e=n?1.55:1;NP[n*3]=q[0]*e;NP[n*3+1]=q[1]*e*1.15;NP[n*3+2]=n?(R()-.5)*1.4:0});
+  // grow a tree outward from the root: each node hangs off the nearest node already reached
+  const ord=[...Array(NN).keys()].map(n=>n+1).sort((a,b)=>Math.hypot(NP[a*3]-gap,NP[a*3+1])-Math.hypot(NP[b*3]-gap,NP[b*3+1]));
+  const PAR=new Uint8Array(NN+1),TN=new Float32Array(NN+1),seen=[0];TN[0]=.26;
+  for(const n of ord){let bp=0,bd=1e9;for(const m of seen){const d=Math.hypot(NP[n*3]-NP[m*3],NP[n*3+1]-NP[m*3+1],NP[n*3+2]-NP[m*3+2]);if(d<bd){bd=d;bp=m}}PAR[n]=bp;TN[n]=TN[bp]+bd/6.5;seen.push(n)}
+  for(let i=0;i<N;i++){const j=i*3;
+    if(RED[i]){M.NODE[i]=1+Math.floor(R()*NN);M.EU[i]=R();continue}
+    let bn=1,bd=1e9;for(let n=1;n<=NN;n++){const d=(ai[j]-orig[n][0])**2+(ai[j+1]-orig[n][1])**2;if(d<bd){bd=d;bn=n}}
+    M.NODE[i]=bn;const node=R()<.3;M.EU[i]=node?1:R();const jr=node?.12:.035;
+    M.EJ[j]=(R()-.5)*jr;M.EJ[j+1]=(R()-.5)*jr;M.EJ[j+2]=(R()-.5)*jr}
+  Object.assign(M,{NP,PAR,TN});MX=M;
+}
+function wordPos(name,p,i,j,o){aim(name,i,j,o);xform(name,i,o[0],o[1],o[2],T,o);o[0]*=p[1];o[1]=o[1]*p[1]+p[0];o[2]*=p[1];return o}
+// vortex slot; ember shards are packets flying down the axis (returns how far along, for fading)
+function vortexPos(i,mp,o){
+  if(RED[i]){const L=11,z=(T*5.5+PH[i]*1.75)%L;o[0]=Math.cos(PH[i]*7)*.16;o[1]=VCY+Math.sin(PH[i]*7)*.16;o[2]=-8+z;return z/L}
+  const th=MX.VTH[i]+(T-MS.t0)*MX.VW[i]+mp*5+MX.VZ[i]*.22,r=MX.VR[i];o[0]=Math.cos(th)*r;o[1]=VCY+Math.sin(th)*r*.92;o[2]=MX.VZ[i];return th}
+const nodeW=(n,o)=>{const q=MX.NP;o[0]=q[n*3]*pA[1];o[1]=q[n*3+1]*pA[1]+pA[0];o[2]=q[n*3+2]*pA[1];return o};
+function morphAim(i,j,mp,tS,o){
+  const red=RED[i];MK=26;MC=6.5;MSC=red?1.25*(.55+.5*Math.abs(Math.sin(T*1.2+PH[i]*3))):.7;
+  if(red&&!FUSE(i)){MSC=0;o[0]=0;o[1]=VCY;o[2]=-4;return}     // ember shards hidden in the words stay hidden
+  if(tS<0){
+    const wake=clamp01(mp/.2);wordPos("web",pW,i,j,o);
+    if(red){MK=26*(.4+1.6*wake);MC=6.5+5*wake;MSC*=1+.5*wake}
+    const u=sstep((mp-.2-MX.DLY[i])/.1);if(u<=0)return;
+    const fr=vortexPos(i,mp,mtmp);
+    if(u>=1){o[0]=mtmp[0];o[1]=mtmp[1];o[2]=mtmp[2];
+      if(red){MK=240;MC=31;MSC=1.1*Math.sin(Math.PI*fr)}else{MK=60;MC=12;MSC=.8}return}
+    // curved ribbon from the letter into its orbit: sweep the angle, pull the radius in, sink in depth
+    const ox=o[0],oy=o[1]-VCY,oz=o[2],r0=Math.hypot(ox,oy),a0=Math.atan2(oy,ox);
+    const a1=red?a0+Math.PI*1.5:fr,r1=Math.hypot(mtmp[0],mtmp[1]-VCY),a=a0+(a1-a0)*u,r=r0+(r1-r0)*Math.pow(u,.7);
+    o[0]=Math.cos(a)*r;o[1]=VCY+Math.sin(a)*r;o[2]=oz+(mtmp[2]-oz)*u*u;MK=60;MC=12;MSC=red?1.1:.75;return}
+  if(tS<.2){o[0]=SPw[0];o[1]=SPw[1];o[2]=SPw[2];MK=520;MC=46;MSC=red?.55:.28;return}   // the snap
+  const n=MX.NODE[i],tn=MX.TN[n],par=MX.PAR[n],tp=MX.TN[par];
+  if(red){
+    if(tS<tp){o[0]=SPw[0];o[1]=SPw[1];o[2]=SPw[2];MK=420;MC=42;MSC=.8;return}
+    if(tS<tn+.02){const u=clamp01((tS-tp-MX.EU[i]*.05)/Math.max(.05,tn-tp));nodeW(par,o);nodeW(n,mtmp);   // signal racing along a connection
+      o[0]+=(mtmp[0]-o[0])*u;o[1]+=(mtmp[1]-o[1])*u;o[2]+=(mtmp[2]-o[2])*u;MK=420;MC=42;MSC=1.15;return}
+  }else if(tS<tn+.07){nodeW(par,o);nodeW(n,mtmp);const u=MX.EU[i];   // fleeting network: edges and node clusters
+    o[0]+=(mtmp[0]-o[0])*u+MX.EJ[j];o[1]+=(mtmp[1]-o[1])*u+MX.EJ[j+1];o[2]+=(mtmp[2]-o[2])*u+MX.EJ[j+2];MK=90;MC=13;MSC=.6;return}
+  wordPos("ai",pA,i,j,o);                                         // locked into AI: stiff and critically damped, no wobble
+  if(tS<SEQ){MK=170;MC=26}else if(red){MK=10.4}
+}
+
+/* ---------- VR headset (Emerging) and the AI → VR transition ----------
+   The headset is built from target regions sampled off simple curves, in local units (visor 3.6 wide):
+     visor rim (front outline: sides/corners, nose notch, top edge), back rim, side edges, side discs,
+     strap (an arch behind and over), sparse visor face, and two faint lenses (internal geometry).
+   F.vr holds every shard's posed slot (idle float, cursor tilt, breathing), refreshed each frame it's on screen.
+   The transition (vq 0→1 through the spacer) is a pure function of scroll progress and per-shard seeds:
+     0–.12  AI charges: ember signals race through the letters, white shards hum
+     .12–.30 A peels up-left, I peels up-right, in staggered ribbons that arc out and curve back
+     .30–.48 wide calm elliptical orbits around the empty spot where the headset will be, front and behind
+     .48–.68 the invisible headset captures shards in order: rim, nose, top edge, sides, strap, surfaces
+     .68–.82 one thin ember scan crosses the visor left to right
+     .82–.94 stragglers are pulled in, everything slows, then it idles */
+let VX=null,vrAcc=0;const VP={yaw:0,pitch:0},VYAW=-.6;   // three-quarter view, visor turned toward the copy
+const VCAP=[[.48,.55],[.53,.58],[.56,.61],[.58,.64],[.61,.67],[.63,.68]];   // capture windows per build group
+const VBAND=[[3.3,.62,-.38,.08],[2.9,.7,-.12,-.05],[3.7,.55,.1,.12],[3.1,.66,.32,-.1],[4.1,.5,.5,.04]];   // orbit: radius, depth ratio, tilt, roll
+function buildVR(){
+  // visor outline as [x,y,tag]: 0 rim, 1 nose, 2 top edge
+  const W2=1.9,H2=1,cr=.5,nw=.46,nd=.42,ol=[];
+  const line=(x0,y0,x1,y1,tg)=>{const n=Math.ceil(Math.hypot(x1-x0,y1-y0)/.01);for(let k=0;k<n;k++)ol.push([x0+(x1-x0)*k/n,y0+(y1-y0)*k/n,tg])};
+  const arc=(cx,cy,a0,a1,tg)=>{const n=Math.ceil(Math.abs(a1-a0)*cr/.01);for(let k=0;k<n;k++){const a=a0+(a1-a0)*k/n;ol.push([cx+Math.cos(a)*cr,cy+Math.sin(a)*cr,tg])}};
+  line(-W2+cr,H2,W2-cr,H2,2);arc(W2-cr,H2-cr,Math.PI/2,0,0);line(W2,H2-cr,W2,-H2+cr,0);arc(W2-cr,-H2+cr,0,-Math.PI/2,0);line(W2-cr,-H2,nw,-H2,0);
+  {const n=110;for(let k=0;k<n;k++){const x=nw-2*nw*k/n;ol.push([x,-H2+nd*Math.sqrt(Math.max(0,1-(x/nw)**2)),1])}}
+  line(-nw,-H2,-W2+cr,-H2,0);arc(-W2+cr,-H2+cr,-Math.PI/2,-Math.PI,0);line(-W2,-H2+cr,-W2,H2-cr,0);arc(-W2+cr,H2-cr,Math.PI,Math.PI/2,0);
+  const OL=ol.length,bend=(x,y)=>-.25*x*x-.1*y*y,DEP=1.3;
+  // a contour of the body: k = outline index, sc = scale in x/y, d = depth behind the visor face (0 front … 1 face gasket)
+  const ring=(k,sc,d,o)=>{const q=ol[k],x=q[0]*sc*(1-.06*d),y=q[1]*sc*(1-.08*d);o[0]=x;o[1]=y;o[2]=bend(x,y)*(1-.15*d)-DEP*d;return o};
+  const inVisor=(x,y)=>{const dx=Math.max(0,Math.abs(x)-(W2-cr)),dy=Math.max(0,Math.abs(y)-(H2-cr));if(dx*dx+dy*dy>cr*cr||Math.abs(x)>W2||Math.abs(y)>H2)return false;return!(Math.abs(x)<nw&&y<-H2+nd*Math.sqrt(Math.max(0,1-(x/nw)**2)))};
+  // head the straps wrap around: an ellipsoid behind the visor
+  const HC=[0,.05,-2.2],HR=[1.6,1.35,1.5];
+  const topStrap=(t,w,o)=>{const ph=.75+t*2.05;o[0]=w*.24;o[1]=HC[1]+HR[1]*Math.sin(ph)*1.04;o[2]=HC[2]+HR[2]*Math.cos(ph)*1.04;return o};   // over the head, front-top to the back
+  const sideStrap=(t,w,o)=>{const ps=.95+t*(6.283-1.9);o[0]=HR[0]*Math.sin(ps)*1.05;o[1]=HC[1]+w*.2;o[2]=HC[2]+HR[2]*Math.cos(ps)*1.05;return o};   // round the back at ear height
+  const M={S:new Float32Array(N*3),G:new Uint8Array(N),CAP:new Float32Array(N),SC:new Float32Array(N),FR:new Uint8Array(N),KIND:new Uint8Array(N),
+    SEED:new Float32Array(N),RP:new Float32Array(N),DEP:new Float32Array(N),SIDE:new Int8Array(N),BAND:new Uint8Array(N),OA:new Float32Array(N),OPH:new Float32Array(N),OW:new Float32Array(N),
+    PATH:new Uint16Array(N*16),OL:new Float32Array(OL*3),bend};
+  for(let k=0;k<OL;k++){const q=ol[k];M.OL[k*3]=q[0];M.OL[k*3+1]=q[1];M.OL[k*3+2]=bend(q[0],q[1])}
+  const v=[0,0,0],v2=[0,0,0];let nW=0,nR=0;for(let i=0;i<N;i++)RED[i]?nR++:nW++;
+  // white: visor rim, front panel inset, body seam, face gasket, body shell, visor face, straps (edge rails + fill), ear discs, lenses, dust (%)
+  const WMIX=[[.19,"rim"],[.07,"inset"],[.07,"seam"],[.07,"gasket"],[.09,"shell"],[.03,"face"],[.08,"topRail"],[.03,"topFill"],[.08,"sideRail"],[.03,"sideFill"],[.05,"ear"],[.03,"lens"],[.18,"dust"]];
+  // ember: lit front-left rim, pixel readout inside the visor, edges, ear discs, dust
+  const RMIX=[[.28,"rimL"],[.30,"pixel"],[.14,"edge"],[.10,"ear"],[.18,"dust"]];
+  const pickKind=(mix,u)=>{let c=0;for(const[w,k]of mix){c+=w;if(u<c)return k}return mix[mix.length-1][1]};
+  // pixel readout: a few small block grids floating inside the visor
+  const BLK=[];for(let b=0;b<11;b++)BLK.push([-1.35+R()*2.5,-.55+R()*1.15,1+Math.floor(R()*3),1+Math.floor(R()*2)]);
+  let wi=0,ri=0;
+  for(let i=0;i<N;i++){const j=i*3,red=RED[i],u=red?(ri++ +.5)/nR:(wi++ +.5)/nW,kind=pickKind(red?RMIX:WMIX,u);
+    const sd=R();M.SEED[i]=sd;let g=5,o=R(),sc=1,fr=0,kd=0;
+    if(kind==="rim"||kind==="rimL"){let k;do{k=Math.floor(R()*OL)}while(kind==="rimL"&&ol[k][0]>.5*R()-.2);ring(k,1,0,v);const jt=.01;v[0]+=(R()-.5)*jt;v[1]+=(R()-.5)*jt;fr=1;
+      const tg=ol[k][2];g=tg;o=tg===1?Math.abs(v[0])/nw:1-Math.abs(v[0])/W2;M.RP[i]=k/OL;if(red&&sd<.5)kd=2}
+    else if(kind==="inset"){ring(Math.floor(R()*OL),.9,0,v);v[2]+=.03;g=3;o=R()*.4;fr=1}
+    else if(kind==="seam"){ring(Math.floor(R()*OL),1,.42,v);g=3;o=.2+R()*.4}
+    else if(kind==="gasket"){ring(Math.floor(R()*OL),1,1,v);g=3;o=.4+R()*.5}
+    else if(kind==="shell"||kind==="edge"){const k=Math.floor(R()*OL),d=R();ring(k,1,d,v);g=3;o=.3+d*.6}
+    else if(kind==="face"){let x,y;do{x=(R()-.5)*2*W2;y=(R()-.5)*2*H2}while(!inVisor(x,y));v[0]=x;v[1]=y;v[2]=bend(x,y)-.04;sc=.5;fr=1}
+    else if(kind==="pixel"){const b=BLK[Math.floor(R()*BLK.length)],cx=Math.floor(R()*(b[2]*3)),cy=Math.floor(R()*(b[3]*2));v[0]=b[0]+cx*.07;v[1]=b[1]+cy*.07;v[2]=bend(v[0],v[1])-.32;sc=.7;fr=1;o=R()}
+    else if(kind==="topRail"||kind==="topFill"){const t=R();topStrap(t,kind==="topRail"?(R()<.5?-1:1):R()*2-1,v);g=4;o=t}
+    else if(kind==="sideRail"||kind==="sideFill"){const t=R();sideStrap(t,kind==="sideRail"?(R()<.5?-1:1):R()*2-1,v);g=4;o=Math.min(t,1-t)*2}
+    else if(kind==="ear"){const sx=R()<.5?-1:1,a=R()*6.283,r=R()<.6?.48:R()<.5?.3:.12;v[0]=sx*HR[0]*1.08;v[1]=HC[1]+Math.cos(a)*r;v[2]=HC[2]+Math.sin(a)*r;g=4;o=.9+R()*.1}
+    else if(kind==="lens"){const sx=R()<.5?-1:1,a=R()*6.283,x=sx*.82+Math.cos(a)*.42,y=.05+Math.sin(a)*.42;v[0]=x;v[1]=y;v[2]=bend(x,y)-.4;sc=.22;fr=1}
+    else{   // dust: shed off the straps and the back of the body, drifting behind and to the side
+      const t=R();if(R()<.55)sideStrap(t,R()*2-1,v);else topStrap(t,R()*2-1,v);
+      const rr=Math.pow(R(),2.2)*1.1,a=R()*6.283,b2=R()*6.283;v[0]+=Math.cos(a)*Math.sin(b2)*rr+.25*rr;v[1]+=Math.sin(a)*Math.sin(b2)*rr;v[2]+=Math.cos(b2)*rr-.2*rr;sc=.55;g=5;o=.5+R()*.5;kd=3}
+    M.S[j]=v[0];M.S[j+1]=v[1];M.S[j+2]=v[2];M.G[i]=g;M.SC[i]=red?(kind==="pixel"?.75:.9):sc;M.FR[i]=fr;
+    // ember roles: ~22% sweep the visor as the scan line, some rim ones run the visor edge when idle, dust drifts
+    M.KIND[i]=red&&kind!=="pixel"&&kd!==3&&sd<.22?1:kd;
+    const w=VCAP[g];M.CAP[i]=R()<.1?.82+R()*.1:w[0]+(w[1]-w[0])*Math.min(1,Math.max(0,o))+(R()-.5)*.008;   // ~10% straggle in late
+    const bb=Math.floor(R()*VBAND.length);M.BAND[i]=bb;M.OA[i]=VBAND[bb][0]*(.94+R()*.12);M.OPH[i]=R()*6.283;M.OW[i]=(.8+R()*.3)*(red?1.6:1);
+  }
+  // departure from AI: A peels from its upper left, I from its top; nearer shards leave first so they go as ribbons
+  const ai=F.ai,gap=WB.ai[0]||0;let lo=1e9,hi=-1e9;for(let i=0;i<N;i++){if(RED[i])continue;lo=Math.min(lo,ai[i*3]);hi=Math.max(hi,ai[i*3])}
+  const emA=[lo+.3,1.05],emI=[(gap+hi)/2,1.05];
+  for(let i=0;i<N;i++){const j=i*3;if(RED[i]){M.SIDE[i]=M.SEED[i]<.5?-1:1;M.DEP[i]=.12+.13*M.SEED[i];continue}
+    const isA=ai[j]<gap,e=isA?emA:emI,d=Math.hypot(ai[j]-e[0],ai[j+1]-e[1]);M.SIDE[i]=isA?-1:1;M.DEP[i]=.12+Math.min(.1,d*.045)+M.SEED[i]*.035}
+  // ember signal routes through the AI letters (precomputed walks over the interior neighbour graph)
+  if(NB.ai)for(let i=0;i<N;i++){if(!RED[i])continue;let c=Math.floor(R()*FIN);for(let k=0;k<16;k++){M.PATH[i*16+k]=c;const l=NB.ai[c];if(l.length)c=l[Math.floor(R()*l.length)]}}
+  M.OLN=OL;VX=M;F.vr=new Float32Array(N*3);
+}
+// pose every slot: three-quarter view, slow float, a few degrees of heavy cursor tilt, breathing, strap sway, ember runners on the rim
+function vrUpdate(sv){
+  const S=VX.S,O=F.vr;
+  VP.yaw+=((mouse.active?mouse.x*.07:0)-VP.yaw)*.02;VP.pitch+=((mouse.active?-mouse.y*.05:0)-VP.pitch)*.02;
+  const yaw=VYAW+VP.yaw,pit=.14+VP.pitch,cy=Math.cos(yaw),sy=Math.sin(yaw),cp=Math.cos(pit),sp=Math.sin(pit),fl=Math.sin(T*.5)*.06/sv,ox=VRX/sv;
+  const sw=Math.sin(T*.3)*.025+VP.yaw*.3,cs=Math.cos(sw),ss=Math.sin(sw);
+  for(let i=0;i<N;i++){const j=i*3;let x=S[j],y=S[j+1],z=S[j+2];
+    if(VX.KIND[i]===2){const k=Math.floor(((VX.RP[i]+T*.045)%1)*VX.OLN)*3;x=VX.OL[k];y=VX.OL[k+1];z=VX.OL[k+2]}
+    if(VX.G[i]===4){const nx=x*cs+(z+2.2)*ss;z=-x*ss+(z+2.2)*cs-2.2;x=nx}
+    else if(VX.KIND[i]===3){const sd=VX.SEED[i]*6.283;x+=Math.sin(T*.21+sd)*.07+.04*Math.sin(T*.13+sd*2);y+=Math.cos(T*.17+sd)*.06;z+=Math.sin(T*.19+sd*3)*.06}
+    const b=1+.006*Math.sin(T*1.1+VX.SEED[i]*6.283);x*=b;y*=b;z*=b;
+    const x1=x*cy+z*sy,z1=-x*sy+z*cy,y1=y*cp-z1*sp,z2=y*sp+z1*cp;
+    O[j]=x1+ox;O[j+1]=y1+fl;O[j+2]=z2}
+}
+const VH=[0,0,0],vt=[0,0,0],vt2=[0,0,0];let vrS=1,vrO=1;
+function vrWorld(j,o){o[0]=F.vr[j]*vrS;o[1]=F.vr[j+1]*vrS+VH[1];o[2]=F.vr[j+2]*vrS;return o}
+function orbitPos(i,q,o){const b=VBAND[VX.BAND[i]],th=VX.OPH[i]+q*VX.OW[i]*7+T*.06,a=VX.OA[i],ps=b[2]*(phone()?.5:1),rl=b[3];
+  const x=a*Math.cos(th),z0=a*b[1]*Math.sin(th),y=-z0*Math.sin(ps),z=z0*Math.cos(ps);
+  o[0]=VH[0]+(x*Math.cos(rl)-y*Math.sin(rl))*vrO;o[1]=VH[1]+(x*Math.sin(rl)+y*Math.cos(rl))*vrO;o[2]=z*vrO;return o}
+const bez=(a,b,c,d,u,o)=>{const m=1-u,w0=m*m*m,w1=3*m*m*u,w2=3*m*u*u,w3=u*u*u;for(let k=0;k<3;k++)o[k]=a[k]*w0+b[k]*w1+c[k]*w2+d[k]*w3;return o};
+const vp0=[0,0,0],vc1=[0,0,0],vc2=[0,0,0];
+function vrAim(i,j,q,o){
+  const red=RED[i],sd=VX.SEED[i];MK=26;MC=6.5;MSC=red?1.25*(.55+.5*Math.abs(Math.sin(T*1.2+PH[i]*3))):.7;
+  const dep=VX.DEP[i],cap=VX.CAP[i];
+  // 1. AI charging: ember signals along precomputed routes, a quarter of the white shards hum
+  if(q<dep){
+    if(red&&FUSE(i)){const s=vrAcc+sd*16,k=Math.floor(s)%15,t=s-Math.floor(s),q0=VX.PATH[i*16+k]*3,q1=VX.PATH[i*16+k+1]*3,fi=FI.ai;
+      xform("ai",i,fi[q0]+(fi[q1]-fi[q0])*t,fi[q0+1]+(fi[q1+1]-fi[q0+1])*t,fi[q0+2],T,o);o[0]*=pA[1];o[1]=o[1]*pA[1]+pA[0];o[2]*=pA[1];MK=180;MC=24}
+    else{wordPos("ai",pA,i,j,o);if(red)MSC=0}
+    if(!red&&sd<.25){const amp=.03*clamp01(q/.12);o[0]+=Math.sin(T*31+sd*90)*amp;o[1]+=Math.cos(T*27+sd*70)*amp}
+    return}
+  if(red&&!FUSE(i))MSC*=clamp01((q-dep-.06)/.1);   // ember hidden inside AI fade in once they're out in space
+  // 2. two magnetic streams: arc out up-left (A) / up-right (I), then curve back into orbit
+  if(q<dep+.1&&q<cap){const u=sstep((q-dep)/.1),sx=VX.SIDE[i];wordPos("ai",pA,i,j,vp0);orbitPos(i,q,vt);
+    vc1[0]=vp0[0]+sx*1.4*vrO;vc1[1]=vp0[1]+1.5*vrO;vc1[2]=vp0[2]+.9*vrO;vc2[0]=VH[0]+sx*4.2*vrO;vc2[1]=VH[1]+2.3*vrO;vc2[2]=.4*vrO;
+    bez(vp0,vc1,vc2,vt,u,o);MK=60;MC=12;return}
+  // 3. calm orbits around the empty headset position
+  if(q<cap){orbitPos(i,q,o);MK=50;MC=11;MSC*=red?1:.9;return}
+  // 4/6. captured: break off the orbit along its tangent, accelerate into the slot, overshoot and settle
+  vrWorld(j,vt);
+  if(q<cap+.05){const u=(q-cap)/.05;orbitPos(i,cap,vp0);orbitPos(i,cap+.02,vc1);
+    const tx=vc1[0]-vp0[0],ty=vc1[1]-vp0[1],tz=vc1[2]-vp0[2],tl=Math.hypot(tx,ty,tz)||1;vc1[0]=vp0[0]+tx/tl*1.3*vrO;vc1[1]=vp0[1]+ty/tl*1.3*vrO;vc1[2]=vp0[2]+tz/tl*1.3*vrO;
+    for(let k=0;k<3;k++)vc2[k]=vt[k]+(vt[k]-VH[k])*.4;bez(vp0,vc1,vc2,vt,u*u,o);MK=70;MC=9;return}
+  o[0]=vt[0];o[1]=vt[1];o[2]=vt[2];MK=70;MC=9+11*clamp01((q-.82)/.12);   // velocities die away toward the end
+  MSC*=red?.5:.48*VX.SC[i]/.7;
+  // 5. visor scan: a thin ember line sweeps left → right; what it passes lifts slightly, lenses show through
+  if(q>.66&&q<.84){const sx=-2.3+4.6*clamp01((q-.68)/.14),dx=VX.S[j]-sx,pu=Math.exp(-dx*dx/.05);
+    if(VX.FR[i])MSC*=1+(VX.SC[i]<.5?2.6:.25)*pu;if(red)MSC*=1+1.2*pu;
+    if(VX.KIND[i]===1&&q>.68&&q<.82){const ly=-.75+1.5*sd,ys=vrS;   // the scan line itself
+      vt2[0]=sx;vt2[1]=ly*1.25;vt2[2]=VX.bend(sx,vt2[1])+.05;
+      const yaw=VYAW+VP.yaw,pit=.14+VP.pitch,cy=Math.cos(yaw),sy=Math.sin(yaw),cp=Math.cos(pit),sp=Math.sin(pit);
+      const x1=vt2[0]*cy+vt2[2]*sy,z1=-vt2[0]*sy+vt2[2]*cy;o[0]=(x1)*ys+VRX;o[1]=(vt2[1]*cp-z1*sp)*ys+VH[1];o[2]=(vt2[1]*sp+z1*cp)*ys;MK=320;MC=36;MSC=.75}}
+}
+
 /* ---------- main loop ---------- */
-let entered=false,enterT=0,T=0,lastIdx=-1,camZ=14,vel=0,lastY=scrollY,started=performance.now();
+let entered=false,enterT=0,T=0,lastIdx=-1,camZ=14,vel=0,lastY=scrollY;
 const clock=new THREE.Clock(),dummy=new THREE.Object3D(),ta=[0,0,0],tb=[0,0,0];
 let disturb=0;
 function frame(){
@@ -712,20 +911,49 @@ function frame(){
   const dt=Math.min(clock.getDelta(),1/30);T+=dt;
   const y=scrollY;const dy=y-lastY;lastY=y;vel+=((Math.abs(dy)/Math.max(dt,1e-3))/1000-vel)*.12;
   const st=readScroll(y);const k=st.k,f=st.f,k2=Math.min(names.length-1,k+1);
-  const nA=entered?names[k]:"scatter",nB=entered?names[k2]:"scatter",fA=F[nA]||F.scatter,fB=F[nB]||F.scatter;
+  const nA=entered?names[k]:"scatter",nB=entered?names[k2]:"scatter";
+  const wordW=(WORDW[nA]?1-f:0)+(WORDW[nB]?f:0);   // how much a scene word is on screen: thinner shards, softer bloom
   const pa=place(nA),pb=place(nB);const oy=pa[0]+(pb[0]-pa[0])*f,sc=pa[1]+(pb[1]-pa[1])*f;
 
-  // scene change → captions, label, score
+  // scene change → ticks, score
   const idx=f<.5?k:k2;
-  if(entered&&idx!==lastIdx){const s=scenes[idx];scramble(sceneLbl,`SC.${pad2(idx+1)} — ${s.dataset.name}`);setCaption(s);Score.setScene(s.dataset.mix);
+  if(entered&&idx!==lastIdx){Score.setScene(scenes[idx].dataset.mix);
     [...ticks.children].forEach((t,i)=>t.classList.toggle("on",i===idx));scenes.forEach((sc2,i)=>{if(i===idx)sc2.classList.add("in")});lastIdx=idx}
+
+  // WEB → AI transition state
+  let mp=-1,tS=-1,kick=false;
+  if(entered&&!RM&&FI.web&&FI.ai&&WB.ai&&meshW){
+    if(!MX)initMorph();
+    const webI=names.indexOf("web"),aiI=names.indexOf("ai");
+    if(k===webI&&f>0)mp=st.r;
+    else if(k===aiI&&f===0&&MS.snapT>=0&&T-MS.snapT<SEQ)mp=1;
+  }
+  if(mp>=0){
+    if(!MS.on){MS.on=true;MS.t0=T}
+    if(mp<.5){MS.snapT=-1;MS.kicked=false}
+    if(mp>=.55&&MS.snapT<0){if(dy>=0){MS.snapT=T;MS.kicked=false;Score.hit(.9)}else{MS.snapT=T-SEQ;MS.kicked=true}}
+    if(MS.snapT>=0){tS=T-MS.snapT;if(tS>=.2&&!MS.kicked){MS.kicked=true;kick=true}}
+    pW=place("web");pA=place("ai");SPw[0]=(WB.ai[0]||0)*pA[1];SPw[1]=pA[0];SPw[2]=0;
+    HOPF=tS<0?1-.88*clamp01(mp/.2):1;
+    matR.emissiveIntensity=tS<0?.75+1.1*clamp01(mp/.2):.75+1.6*Math.exp(-tS*4);
+  }else{MS.on=false;HOPF=1}
+
+  // AI → VR transition state, and keep the headset pose fresh while it's anywhere on screen
+  let vq=-1;
+  if(entered&&!VX&&F.ai&&FI.ai&&NB.ai&&WB.ai&&meshW)buildVR();
+  const vrW=(nA==="vr"?1-f:0)+(nB==="vr"?f:0);
+  if(VX){const aiI=names.indexOf("ai");if(!RM&&k===aiI&&f>0)vq=st.r;
+    if(vq>=0||vrW>0){const pv=place("vr");vrS=pv[1];vrO=pv[1]/.88;VH[0]=VRX;VH[1]=pv[0];vrUpdate(pv[1])}
+    if(vq>=0){pA=place("ai");vrAcc+=dt*(3+9*clamp01(vq/.12))}}
+  if(mp<0)matR.emissiveIntensity=.75+1.1*(vq>=0?clamp01((vq-.45)/.2):vrW);   // ember burns hotter once it is part of the headset
 
   // camera: dolly through the tunnel during the manifesto
   const tunnelI=names.indexOf("tunnel");let tunnelW=0,dolly=0;
   if(entered){if(k===tunnelI){tunnelW=1-f;dolly=st.p}else if(k2===tunnelI&&f>0){tunnelW=f;dolly=0}}
   const easeD=dolly<.5?2*dolly*dolly:1-Math.pow(-2*dolly+2,2)/2;
-  const tz=14-34*easeD*(k===tunnelI?1-f:0);
-  camZ+=(tz-camZ)*.08;
+  const push=mp>=0&&tS<0?5*sstep((mp-.4)/.15):0;   // push into the vortex, released on the snap
+  const tz=14-34*easeD*(k===tunnelI?1-f:0)-push;
+  camZ+=(tz-camZ)*(tS>=0&&tS<.6?.18:.08);
   camera.position.x+=((mouse.active?mouse.x*.35:0)-camera.position.x)*.03;camera.position.y+=((mouse.active?mouse.y*.22:0)-camera.position.y)*.03;camera.position.z=camZ;
   camera.lookAt(camera.position.x*.3,camera.position.y*.3,camZ-14);
   // manifesto words light up as the camera travels
@@ -743,31 +971,46 @@ function frame(){
     const stretchBase=RM?0:Math.min(3,vel*.9);let hits=0;
     for(let i=0;i<N;i++){
       const j=i*3;
-      xform(nA,i,fA[j],fA[j+1],fA[j+2],T,ta);
-      if(nB!==nA)xform(nB,i,fB[j],fB[j+1],fB[j+2],T,tb);else{tb[0]=ta[0];tb[1]=ta[1];tb[2]=ta[2]}
-      const free=(nA==="tunnel"?1-f:0)+(nB==="tunnel"?f:0);   // tunnel lives in world space, not scaled
-      const s2=sc*(1-free)+free;
-      let tx=(ta[0]+(tb[0]-ta[0])*f)*s2,ty=(ta[1]+(tb[1]-ta[1])*f)*s2+oy*(1-free),tz=(ta[2]+(tb[2]-ta[2])*f)*s2;
-      if(entered&&!RM&&sinceEnter<DEL[i]&&k===0&&f===0){tx=F.scatter[j];ty=F.scatter[j+1];tz=F.scatter[j+2]}
-      if(!entered){tx+=Math.sin(T*.3+PH[i])*.6;ty+=Math.cos(T*.25+PH[i]*1.3)*.4}
-      tx+=Math.sin(T*.8+PH[i])*.012;ty+=Math.cos(T*.7+PH[i])*.012;
+      let tx,ty,tz,k2s,dmpI=dmp,bs=-1;
+      if(mp>=0||vq>=0){mp>=0?morphAim(i,j,mp,tS,ta):vrAim(i,j,vq,ta);tx=ta[0];ty=ta[1];tz=ta[2];k2s=MK;dmpI=Math.exp(-MC*dt);bs=MSC}
+      else{
+        aim(nA,i,j,ta);xform(nA,i,ta[0],ta[1],ta[2],T,ta);
+        if(nB!==nA){aim(nB,i,j,tb);xform(nB,i,tb[0],tb[1],tb[2],T,tb)}else{tb[0]=ta[0];tb[1]=ta[1];tb[2]=ta[2]}
+        const free=(nA==="tunnel"?1-f:0)+(nB==="tunnel"?f:0);   // tunnel lives in world space, not scaled
+        const s2=sc*(1-free)+free;
+        tx=(ta[0]+(tb[0]-ta[0])*f)*s2;ty=(ta[1]+(tb[1]-ta[1])*f)*s2+oy*(1-free);tz=(ta[2]+(tb[2]-ta[2])*f)*s2;
+        if(entered&&!RM&&sinceEnter<DEL[i]&&k===0&&f===0){tx=F.scatter[j];ty=F.scatter[j+1];tz=F.scatter[j+2]}
+        if(!entered){tx+=Math.sin(T*.3+PH[i])*.6;ty+=Math.cos(T*.25+PH[i]*1.3)*.4}
+        tx+=Math.sin(T*.8+PH[i])*.012;ty+=Math.cos(T*.7+PH[i])*.012;
+        k2s=RED[i]?stiff*(1-.6*wordW):stiff;    // ember shards move at an easy pace inside words
+      }
       let vx=V[j],vy=V[j+1],vz=V[j+2];
-      vx+=(tx-P[j])*stiff*dt;vy+=(ty-P[j+1])*stiff*dt;vz+=(tz-P[j+2])*stiff*dt;
-      if(mouse.active&&entered&&tunnelW<.5){const dx=P[j]-wx,dy2=P[j+1]-wy,d2=dx*dx+dy2*dy2;
+      if(kick&&bs>0){const ex=tx-SPw[0],ey=ty-SPw[1],ez=tz-SPw[2],el=Math.hypot(ex,ey,ez)||1,sp0=5+R()*4;vx+=ex/el*sp0;vy+=ey/el*sp0;vz+=ez/el*sp0}   // shockwave burst
+      vx+=(tx-P[j])*k2s*dt;vy+=(ty-P[j+1])*k2s*dt;vz+=(tz-P[j+2])*k2s*dt;
+      if(mouse.active&&entered&&tunnelW<.5&&mp<0&&vq<0&&vrW<.5){const dx=P[j]-wx,dy2=P[j+1]-wy,d2=dx*dx+dy2*dy2;
         if(d2<RAD2){const d=Math.sqrt(d2)+1e-4,s=1-d/RAD;const fz=s*s*push*dt*(.4+Math.min(mouse.speed,12)*.08);vx+=dx/d*fz;vy+=dy2/d*fz;vz+=fz*(PH[i]>3.14?1:-1);if(s>.55)hits++}}
-      vx*=dmp;vy*=dmp;vz*=dmp;V[j]=vx;V[j+1]=vy;V[j+2]=vz;P[j]+=vx*dt;P[j+1]+=vy*dt;P[j+2]+=vz*dt;
+      vx*=dmpI;vy*=dmpI;vz*=dmpI;V[j]=vx;V[j+1]=vy;V[j+2]=vz;P[j]+=vx*dt;P[j+1]+=vy*dt;P[j+2]+=vz*dt;
       const sp=Math.sqrt(vx*vx+vy*vy+vz*vz);
-      ANG[i]=ANG[i]*Math.exp(-(RM?6:2.2)*dt)+sp*dt*(RM?0:3)*(1-tunnelW);
+      ANG[i]=ANG[i]*Math.exp(-(RM?6:tS>.3?7:2.2)*dt)+sp*dt*(RM?0:3)*(1-tunnelW);
       const a=ANG[i];dummy.position.set(P[j],P[j+1],P[j+2]);dummy.rotation.set(AX[j]*a,AX[j+1]*a,AX[j+2]*a);
-      const base=RED[i]?1.25:1;const zs=1+tunnelW*(5+Math.min(20,vel*6))+stretchBase*.4;dummy.scale.set(base,base,base*zs);
+      const base=bs>=0?bs:(RED[i]?1.25*(1-wordW+wordW*(FUSE(i)?.55+.5*Math.abs(Math.sin(T*1.2+PH[i]*3)):0)):1-.3*wordW)*(VX?1-vrW*(RED[i]?.5:1-.48*VX.SC[i]):1);const zs=1+tunnelW*(5+Math.min(20,vel*6))+stretchBase*.4;dummy.scale.set(base,base,base*zs);
       if(sub===SUB-1){dummy.updateMatrix();(RED[i]?meshR:meshW).setMatrixAt(MI[i],dummy.matrix)}
     }
     if(sub<SUB-1)continue;
     meshW.instanceMatrix.needsUpdate=true;meshR.instanceMatrix.needsUpdate=true;
     disturb+=hits*dt*.35;while(disturb>1){disturb-=1;Score.glass(mouse.x,.6+R()*.5)}if(disturb>3)disturb=3;
   }
-  if(entered){const e=(performance.now()-started)/1000,fr=Math.floor((e%1)*24);tcEl.textContent=`TC 00:${pad2(Math.floor(e/60)%60)}:${pad2(Math.floor(e)%60)}:${pad2(fr)}`}
-  if(renderer){film.uniforms.uTime.value=T;film.uniforms.uCA.value=RM?.001:.0018+Math.min(.028,vel*.006)+tunnelW*.004;composer.render(dt)}
+  if(renderer){
+    const vrB=vq>=0?1:vrW;bloom.threshold=.62+.26*vrB;   // around the headset only the ember (and the odd highlight) clears the threshold
+    if(vq>=0)bloom.strength+=(.4-bloom.strength)*.08;
+    else if(mp<0)bloom.strength+=((.55-.42*wordW-.15*vrW)-bloom.strength)*.06;
+    else if(tS<0)bloom.strength+=((.13+.25*clamp01((mp-.2)/.2))-bloom.strength)*.08;
+    else if(tS<.22)bloom.strength=2.4;                          // the point burns white-hot
+    else bloom.strength+=(.13-bloom.strength)*.12;
+    const sw=tS>=.2&&tS<1?(tS-.2)/.8:-1;
+    if(sw>=0){shockV.set(SPw[0],SPw[1],SPw[2]).project(camera);film.uniforms.uShock.value.set(shockV.x*.5+.5,shockV.y*.5+.5,sw*1.05);film.uniforms.uShockA.value=.03*(1-sw)*(1-sw)}
+    else film.uniforms.uShockA.value=0;
+    film.uniforms.uTime.value=T;film.uniforms.uCA.value=RM?.001:.0018+Math.min(.028,vel*.006)+tunnelW*.004;composer.render(dt)}
 }
 
 /* ---------- cursor viewfinder ---------- */
@@ -788,18 +1031,16 @@ const slate=$("#slate"),count=$("#count"),board=$("#board");
 let lenis=null;
 function enter(withSound){
   if(entered) return;
-  Score.init();Score.setOn(withSound);store.set("tess-sound",withSound?"1":"0");syncSound();
+  Score.init();Score.setOn(withSound);store.set("tess-sound",withSound?"1":"0");
   board.classList.add("clap");Score.clack();
   document.body.classList.add("cine");
   setTimeout(()=>{slate.classList.add("gone");document.body.classList.remove("locked");document.body.classList.add("open");
-    entered=true;enterT=T;started=performance.now();Score.braam();measure();
+    entered=true;enterT=T;Score.braam();measure();
     if(!RM&&window.Lenis){lenis=new Lenis({lerp:.085,smoothWheel:true});(function raf(t){lenis.raf(t);requestAnimationFrame(raf)})(performance.now())}
   },420);
 }
-function syncSound(){const on=Score.on;document.body.classList.toggle("sound-on",on);$("#soundBtn").setAttribute("aria-pressed",String(on));$("#soundLbl").textContent=on?"Score on":"Score off"}
 $("#playSound").addEventListener("click",()=>enter(true));
 $("#playMuted").addEventListener("click",()=>enter(false));
-$("#soundBtn").addEventListener("click",()=>{Score.init();Score.setOn(!Score.on);store.set("tess-sound",Score.on?"1":"0");syncSound()});
 document.querySelectorAll('a[href="#reel"]').forEach(a=>a.addEventListener("click",e=>e.preventDefault()));
 $("#copyMail").addEventListener("click",e=>{const b=e.currentTarget,txt=$("#mail").textContent;const ok=()=>{b.textContent="Copied";setTimeout(()=>b.textContent="Copy",1600)};
   const sel=()=>{const r=document.createRange();r.selectNodeContents($("#mail"));const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent="Selected"};
@@ -816,7 +1057,7 @@ img.onload=()=>{try{sampleLogo(img)}catch(e){console.warn("Logo sampling failed.
 img.onerror=()=>{F.logo=F.ring;for(let i=0;i<N;i++){RED[i]=i%40===0?1:0;DEL[i]=R()*1.5}buildMeshes();resize();target=100};
 img.src=document.querySelector(".lb-mark img").src;
 resize();frame();
-if(document.fonts)document.fonts.ready.then(()=>{sizeReel();measure();drawArt()});
+if(document.fonts){document.fonts.load('900 220px Unbounded').then(buildWords,buildWords);document.fonts.ready.then(()=>{sizeReel();measure();drawArt()})}else buildWords();
 addEventListener("load",()=>{sizeReel();measure()});
 addEventListener("keydown",e=>{if(!entered&&slate.classList.contains("ready")&&e.key==="Enter"&&document.activeElement===document.body){enter(store.get("tess-sound")!=="0")}});
 </script>
