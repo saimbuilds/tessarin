@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#000000">
-<meta name="description" content="Tessarin Studio builds websites, AI products and real-time 3D for teams anywhere.">
-<title>Tessarin Studio</title>
+<meta name="description" content="Tessarin is a design and engineering studio. We build fast websites, useful AI and real-time 3D for companies anywhere in the world.">
+<title>Tessarin Studio · Websites, AI and real-time 3D</title>
 <link rel="stylesheet" href="brand/fonts/fonts.css">
 <style>
 /* Layout: a film you scroll. Fixed WebGL stage behind letterbox bars; full-bleed scenes with sticky stages; object centre, giant type behind, scene card bottom-left. Tokens follow tessarin/DESIGN.md. */
@@ -66,39 +66,55 @@ body.open .lb>*{opacity:1}
 .ticks i{width:18px;height:2px;background:var(--hairline);transition:background .4s,width .4s}
 .ticks i.on{background:var(--ember);width:30px}
 
-/* ---------- cursor: a tiny black hole. Its event horizon, its disk (back half behind, front half in front),
-   and in WebGL it bends the shards around it. Stretches along fast moves; swells over anything clickable. ---------- */
-.cur{position:fixed;left:0;top:0;z-index:60;pointer-events:none;width:0;height:0;opacity:0;transition:opacity .4s}
-body.cine .cur{opacity:1}
-/* the cursor is the logo's accent shard: solid ember, and an outline around anything you can click */
-.cur svg{position:absolute;left:-7px;top:-4px;width:14px;height:8px;overflow:visible;transition:transform .4s var(--ease)}
-.cur path{fill:var(--ember);stroke:var(--ember);stroke-width:0;transition:fill .25s,stroke-width .25s}
-.cur.lock svg{transform:scale(2.7)}
-.cur.lock path{fill:rgba(231,74,42,0);stroke-width:.8px}   /* scaled 2.7x with the shard: about 2px */
-.cur.press svg{transform:scale(.7)}
-.cur.lock.press svg{transform:scale(2.2)}
+/* ---------- cursor: a hollow ring of liquid glass ----------
+   After Apple's Liquid Glass: the ring is a lens. It refracts whatever is under it (an SVG displacement lens in Chromium
+   browsers, a frosted blur elsewhere), is edged in ember like the logo's accent and catches light on its top-left rim.
+   It trails the pointer, stretches a little on fast moves, swells over anything clickable and squeezes on press.
+   The hole in the middle is the hotspot. Size: --cs (the SVG filter below is drawn for 42px). */
+.cur{--cs:42px;position:fixed;left:0;top:0;z-index:60;pointer-events:none;width:var(--cs);height:var(--cs);margin:calc(var(--cs)/-2) 0 0 calc(var(--cs)/-2);opacity:0;transition:opacity .35s}
+body.cine .cur.on{opacity:1}
+.cur .ring,.cur .lg,.cur .rim{position:absolute;inset:0;border-radius:50%}
+.cur .lg{-webkit-mask:radial-gradient(circle closest-side,transparent 63.5%,#000 66%);mask:radial-gradient(circle closest-side,transparent 63.5%,#000 66%);
+  -webkit-backdrop-filter:blur(1.4px) saturate(1.9) brightness(1.15);backdrop-filter:blur(1.4px) saturate(1.9) brightness(1.15)}
+.cur.refract .lg{-webkit-backdrop-filter:url(#lgRefract);backdrop-filter:url(#lgRefract)}
+.cur .rim{background:radial-gradient(circle closest-side,transparent 64%,rgba(231,74,42,.16) 66%,rgba(231,74,42,.03) 80%,rgba(231,74,42,.2) 98%,transparent 100%);
+  box-shadow:inset 0 0 0 1.25px rgba(231,74,42,.95),inset 1.6px 2px 1.4px -.8px rgba(255,255,255,.8),inset -1.2px -1.6px 1.4px -.8px rgba(255,255,255,.28),0 0 14px rgba(231,74,42,.32),0 5px 16px rgba(0,0,0,.4);transition:box-shadow .3s}
+.cur .rim::after{content:"";position:absolute;inset:17.5%;border-radius:50%;box-shadow:0 0 0 1px rgba(231,74,42,.6),1.2px 1.6px 1.4px -.4px rgba(255,255,255,.5),-1px -1px 1px -.5px rgba(0,0,0,.35)}
+.cur.lock .rim{box-shadow:inset 0 0 0 1px rgba(231,74,42,1),inset 1.4px 1.8px 1.2px -.8px rgba(255,255,255,.9),inset -1px -1.4px 1.2px -.8px rgba(255,255,255,.32),0 0 22px rgba(231,74,42,.5),0 6px 20px rgba(0,0,0,.45)}
+.defs{position:absolute;width:0;height:0;overflow:hidden}
 @media (hover:none),(pointer:coarse){.cur{display:none}}
 
-/* ---------- intro: one shard ----------
-   While the site loads, the logo's accent shard fills with ember along its own slant. On Enter it bursts,
-   and its pieces fly out and build the wordmark. --iy is the shard's height on screen; the 3D burst starts there. */
-.intro{--iy:46%;--p:0;--sw:clamp(72px,7.5vw,110px);position:fixed;inset:0;z-index:50;pointer-events:none;transition:opacity .8s var(--ease),visibility .8s}
-.intro.gone{opacity:0;visibility:hidden;transition:opacity .5s var(--ease),visibility .5s}
-.ld-shard{position:absolute;left:50%;top:var(--iy);width:var(--sw);height:calc(var(--sw)*.56);transform:translate(-50%,-50%);
-  filter:drop-shadow(0 0 calc(3px + var(--p)*20px) rgba(231,74,42,calc(.12 + var(--p)*.4)));transition:transform .45s cubic-bezier(.55,0,.8,.2),opacity .3s}
-.ld-shard i{position:absolute;inset:0;clip-path:polygon(32% 0,100% 0,68% 100%,0 100%);
-  background:linear-gradient(119.7deg,var(--ember) calc(24% + var(--p)*52%),rgba(237,234,228,.1) calc(24% + var(--p)*52% + 1.5px))}   /* the fill edge runs parallel to the slant */
-.intro.done .ld-shard{animation:ldBreathe 2.6s ease-in-out infinite}
-@keyframes ldBreathe{50%{transform:translate(-50%,-50%) scale(1.07)}}
-.intro.gone .ld-shard{animation:none;transform:translate(-50%,-50%) scale(2.6);opacity:0}
-.intro-ui{position:absolute;left:50%;top:calc(var(--iy) + var(--sw)*.28 + clamp(36px,7vh,64px));transform:translateX(-50%);display:grid;justify-items:center;width:max-content}
-.intro-ui>*{grid-area:1/1}
-.intro-load{display:flex;align-items:baseline;gap:.7em;color:var(--smoke);transition:opacity .6s,transform .9s var(--ease)}
-.intro-load b{color:var(--bone);font-weight:400;font-variant-numeric:tabular-nums;min-width:3ch;text-align:right}
-.intro.done .intro-load{opacity:0;transform:translateY(-8px)}
-.intro-go{display:grid;justify-items:center;gap:16px;opacity:0;transform:translateY(12px);transition:opacity .9s var(--ease) .15s,transform .9s var(--ease) .15s}
-.intro.done .intro-go{opacity:1;transform:none;pointer-events:auto}
-.intro.gone .intro-go{pointer-events:none}
+/* ---------- intro: the orb ----------
+   While the site loads, the logo's shards tessellate an orb around an ember core, laid from the bottom up; each one lands
+   hot and cools to bone (the 3D lives in the WebGL stage, see "loader: the orb"). The counter rolls like an odometer and
+   the piece count is real. On Enter the orb pulls in for a beat, bursts, and its pieces build the wordmark.
+   --iy is the orb's centre on screen and --orb its radius, both in px, set from the 3D layout. */
+.intro{--iy:44vh;--orb:16vh;--p:0;position:fixed;inset:0;z-index:50;pointer-events:none;color:var(--bone)}
+.intro.gone{visibility:hidden;transition:visibility 0s 1.1s}
+.ld-top,.ld-bot{position:absolute;left:var(--gut);right:var(--gut);display:flex;justify-content:space-between;gap:16px;animation:ldIn 1.4s var(--ease) .15s backwards;transition:opacity .7s var(--ease),transform 1s var(--ease)}
+@keyframes ldIn{from{opacity:0}}
+.ld-top{top:0;height:calc(var(--lb-top) + env(safe-area-inset-top,0px));padding:env(safe-area-inset-top,0px) 0 12px;align-items:flex-end;color:var(--smoke)}
+.ld-top img{height:18px;width:auto;display:block}
+.ld-bot{bottom:calc(env(safe-area-inset-bottom,0px) + clamp(22px,4vh,40px));align-items:flex-end}
+.intro.gone .ld-top{opacity:0;transform:translateY(-10px)}
+.intro.gone .ld-bot{opacity:0;transform:translateY(14px)}
+.ld-count{display:flex;font-family:var(--f-display);font-weight:900;font-size:clamp(4.2rem,12vw,11rem);line-height:1.15em;letter-spacing:0;margin:0 0 -.18em -.04em}
+/* one wheel window: the digit (Unbounded: .77em tall) with room above and below to fade; the wheels step by 1.15em */
+.ld-count .dg{height:1.15em;overflow:hidden;-webkit-mask:linear-gradient(transparent,#000 .14em,#000 1.01em,transparent);mask:linear-gradient(transparent,#000 .14em,#000 1.01em,transparent)}
+.ld-count .dg>span{display:flex;flex-direction:column;align-items:center;will-change:transform}
+.ld-count .dg i{font-style:normal;height:1.15em;display:block}
+.ld-count .dg+.dg{margin-left:-.05em}
+.ld-count em{font-size:.3em;line-height:1;color:var(--ember);margin:.62em 0 0 .12em}
+.ld-meta{display:grid;gap:7px;justify-items:end;text-align:right;color:var(--smoke);white-space:nowrap}
+.ld-meta b{color:var(--bone);font-weight:400}
+.ld-meta .st{color:var(--bone)}
+.ld-bar{position:absolute;left:0;right:0;bottom:calc(-1*clamp(11px,2vh,20px));height:1px;background:var(--hairline)}
+.ld-bar i{position:absolute;inset:0;background:var(--ember);transform-origin:0 50%;transform:scaleX(var(--p));box-shadow:0 0 8px var(--ember-glow)}
+.intro-go{position:absolute;left:50%;top:calc(var(--iy) + var(--orb) + clamp(26px,6vh,56px));transform:translate(-50%,14px);display:grid;justify-items:center;gap:16px;opacity:0;transition:opacity .9s var(--ease) .2s,transform 1.1s var(--ease) .2s}
+.intro.done .intro-go{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.intro.gone .intro-go{opacity:0;transform:translate(-50%,0) scale(.94);pointer-events:none;transition:opacity .3s,transform .5s var(--ease)}
+.intro.nogl .ld-bot{display:none}
+.intro.nogl .intro-go{top:50%}
 .enter{font-family:var(--f-display);font-weight:800;font-size:clamp(.95rem,1.25vw,1.15rem);letter-spacing:.02em;text-transform:uppercase;background:var(--ember);color:var(--void);border:0;border-radius:999px;padding:20px 30px 20px 36px;display:inline-flex;gap:16px;align-items:center;cursor:pointer;transition:background .3s}
 .enter:hover{background:var(--bone)}
 .enter .eq{height:12px}
@@ -194,11 +210,13 @@ h2.t em{font-size:1.04em}
 .hole-l.dn{align-self:start;padding-top:23vh}
 
 /* the ending: we fall into the glow, and the only thing left is the button, black like the hole itself */
-.hole-cta{position:absolute;inset:0;display:grid;place-items:center;opacity:0;transform:scale(.9);transition:opacity 1.2s var(--ease),transform 1.8s var(--ease);pointer-events:none}
+.hole-cta{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;opacity:0;transform:scale(.9);transition:opacity 1.2s var(--ease),transform 1.8s var(--ease);pointer-events:none}
 #holeStage.arrived .hole-cta,.nogl .hole-cta{opacity:1;transform:none;pointer-events:auto}
 .cta-hole{font-family:var(--f-display);font-weight:800;font-size:clamp(1rem,1.6vw,1.35rem);letter-spacing:-.01em;text-transform:uppercase;background:var(--void);color:var(--bone);border-radius:999px;padding:26px 46px;display:inline-flex;gap:14px;align-items:center;box-shadow:0 0 0 1px rgba(237,234,228,.2),0 30px 120px rgba(0,0,0,.6);transition:background .3s,color .3s}
 .cta-hole:hover{background:var(--bone);color:var(--void)}
 .cta-hole svg{width:18px;height:18px}
+.hole-note{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--void);opacity:.72;text-align:center;padding:0 24px;max-width:30em;text-wrap:balance}
+.nogl .hole-note{color:var(--bone)}
 .magnet{display:inline-block;transition:transform .5s var(--ease)}
 .cta-big{font-family:var(--f-display);font-weight:800;font-size:clamp(1rem,1.6vw,1.3rem);letter-spacing:-.01em;text-transform:uppercase;background:var(--ember);color:var(--void);border-radius:999px;padding:24px 40px;display:inline-flex;gap:14px;align-items:center;transition:background .3s}
 .cta-big:hover{background:var(--bone)}
@@ -212,12 +230,14 @@ h2.t em{font-size:1.04em}
   .tags li::after{display:none}
   .card{background:linear-gradient(to bottom,transparent,rgba(0,0,0,.75) 22%);padding-top:22px}
   .steps{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:16px}
-  .intro{--iy:42%}
+  .ld-count{font-size:clamp(3.4rem,17vw,5.6rem)}
+  .ld-meta{gap:5px}
   .hole-l.up{padding-bottom:16vh}.hole-l.dn{padding-top:16vh}
 
   .lb-right .btn.sound .lbl{display:none}
   .pad{padding-bottom:calc(var(--lb-bot) + 100px)}
   .s-hero .pad{padding-bottom:calc(var(--lb-bot) + 110px)}
+  .hero-meta .sep{display:none}.hero-meta b{display:block;margin-bottom:4px}
 }
 @media (prefers-reduced-motion:reduce){
   .split .ch,.fade{transform:none!important;opacity:1!important;transition:none}
@@ -229,7 +249,22 @@ h2.t em{font-size:1.04em}
 </head>
 <body>
 <canvas id="gl" aria-hidden="true"></canvas>
-<div class="cur" id="vf" aria-hidden="true"><svg viewBox="0 0 50 28"><path d="M16 0H50L34 28H0Z"/></svg></div>
+<div class="cur" id="vf" aria-hidden="true"><div class="ring"><div class="lg"></div><div class="rim"></div></div></div>
+<svg class="defs" width="0" height="0" aria-hidden="true" focusable="false"><filter id="lgRefract" x="0" y="0" width="42" height="42" filterUnits="userSpaceOnUse" primitiveUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+  <!-- liquid glass: the ring's lens map (drawn in JS) bends the backdrop; red, green and blue bend by slightly different amounts -->
+  <feImage id="lgMap" x="0" y="0" width="42" height="42" preserveAspectRatio="none" result="map"/>
+  <feGaussianBlur in="SourceGraphic" stdDeviation=".35" result="src"/>
+  <feDisplacementMap in="src" in2="map" scale="14" xChannelSelector="R" yChannelSelector="G" result="dr"/>
+  <feDisplacementMap in="src" in2="map" scale="12.5" xChannelSelector="R" yChannelSelector="G" result="dg"/>
+  <feDisplacementMap in="src" in2="map" scale="11" xChannelSelector="R" yChannelSelector="G" result="db"/>
+  <feColorMatrix in="dr" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="r"/>
+  <feColorMatrix in="dg" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="g"/>
+  <feColorMatrix in="db" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="b"/>
+  <feBlend in="r" in2="g" mode="screen" result="rg"/>
+  <feBlend in="rg" in2="b" mode="screen" result="rgb"/>
+  <feColorMatrix in="rgb" type="saturate" values="1.45" result="sat"/>
+  <feComponentTransfer in="sat"><feFuncR type="linear" slope="1.12" intercept=".015"/><feFuncG type="linear" slope="1.12" intercept=".015"/><feFuncB type="linear" slope="1.12" intercept=".015"/></feComponentTransfer>
+</filter></svg>
 
 <header class="lb lb-top" id="lbTop">
   <a class="lb-mark" href="#top" data-lock aria-label="Tessarin, back to the opening"><img src="brand/tessarin-logo.png" alt="Tessarin"></a>
@@ -243,13 +278,15 @@ h2.t em{font-size:1.04em}
 </div>
 
 <div class="intro" id="intro" role="dialog" aria-modal="true" aria-label="Tessarin Studio">
-  <div class="ld-shard" aria-hidden="true"><i></i></div>
-  <div class="intro-ui">
-    <div class="intro-load mono" aria-hidden="true"><span>Loading</span><span><b id="ldPct">0</b>%</span></div>
-    <div class="intro-go">
-      <button class="enter" id="enterSound" type="button" data-lock>Enter <span class="eq" aria-hidden="true"><b></b><b></b><b></b><b></b></span></button>
-      <button class="enter-quiet mono" id="enterQuiet" type="button" data-lock>Enter without sound</button>
-    </div>
+  <div class="ld-top" aria-hidden="true"><img class="ld-logo" alt=""><span class="mono">Websites · AI · Real-time 3D</span></div>
+  <div class="ld-bot" aria-hidden="true">
+    <div class="ld-count"><span class="dg"><span id="dg0"><i>0</i><i>1</i></span></span><span class="dg"><span id="dg1"><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>0</i></span></span><span class="dg"><span id="dg2"><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>0</i></span></span><em>%</em></div>
+    <div class="ld-meta mono"><span class="st" id="ldState">Assembling</span><span><b id="ldPieces">0</b> / <span id="ldTotal">5,200</span> pieces</span></div>
+    <div class="ld-bar"><i></i></div>
+  </div>
+  <div class="intro-go">
+    <button class="enter" id="enterSound" type="button" data-lock>Enter <span class="eq" aria-hidden="true"><b></b><b></b><b></b><b></b></span></button>
+    <button class="enter-quiet mono" id="enterQuiet" type="button" data-lock>Enter without sound</button>
   </div>
 </div>
 
@@ -258,24 +295,24 @@ h2.t em{font-size:1.04em}
     <div class="pad">
       <h1 class="mega split">Future,<br><em>assembled<span class="dot">.</span></em></h1>
       <div class="hero-meta mono fade">
-        <span><b>Tessarin Studio</b> — Web · AI · Emerging tech</span>
-        <span>Young engineers. Unreasonably fast.</span>
-        <span class="scrollcue">Scroll to play <i></i></span>
+        <span><b>Tessarin Studio</b><span class="sep"> · </span>Websites, AI and real-time 3D</span>
+        <span>One team from first sketch to launch.</span>
+        <span class="scrollcue">Scroll to begin <i></i></span>
       </div>
     </div>
   </section>
 
   <section class="scene s-tunnel" data-form="tunnel" data-name="Manifesto" data-mix="tunnel">
     <div class="sticky">
-      <p class="manifesto" id="manifesto">We are young. We are fast. We are <em>unreasonably</em> technical. Give us the hard part: the interface, the intelligence, the infrastructure. We snap together around it and ship work that feels like it came from a few years <em>ahead.</em></p>
+      <p class="manifesto" id="manifesto">Bring us the part everyone else calls <em>too hard.</em> We design it, engineer it and put it live. You speak directly to the people building it, you see it working every week, and nothing ships that we would not put our <em>name</em> on.</p>
     </div>
   </section>
 
   <section class="scene s-cap" data-form="web" data-name="Web" data-hold-end=".55" data-mix="web">
     <div class="sticky">
       <div class="cap-grid pad">
-        <div class="card"><h2 class="t split">Sites that feel <em>alive.</em></h2><p class="body fade">Marketing sites people remember and web apps people actually use. Fast on a mid-range phone, beautiful on a 5K screen.</p></div>
-        <ul class="tags mono fade"><li>Next.js</li><li>React</li><li>Design systems</li><li>E-commerce</li><li>SaaS dashboards</li></ul>
+        <div class="card"><h2 class="t split">Websites that <em>do the selling.</em></h2><p class="body fade">Marketing sites that turn visitors into enquiries, and web apps your customers enjoy using. Fast on a mid-range phone, sharp on a 5K screen, and simple for your team to update.</p></div>
+        <ul class="tags mono fade"><li>Next.js</li><li>React</li><li>Design systems</li><li>E-commerce</li><li>Web apps</li></ul>
       </div></div>
   </section>
 
@@ -284,8 +321,8 @@ h2.t em{font-size:1.04em}
   <section class="scene s-cap" data-form="ai" data-name="AI" data-hold-end=".55" data-mix="ai">
     <div class="sticky">
       <div class="cap-grid pad">
-        <div class="card"><h2 class="t split">AI that does <em>real work.</em></h2><p class="body fade">Agents that answer customers, search your documents and automate the slow parts of your operations, wired into the tools you already use.</p></div>
-        <ul class="tags mono fade"><li>LLM agents</li><li>RAG search</li><li>Automation</li><li>Voice</li><li>Integrations</li></ul>
+        <div class="card"><h2 class="t split">AI that does <em>real work.</em></h2><p class="body fade">Assistants that answer your customers, find what is buried in your documents and take repetitive work off your team. Connected to the tools you already use, tested on your real data, and built to say so when it does not know.</p></div>
+        <ul class="tags mono fade"><li>AI agents</li><li>Document search</li><li>Automation</li><li>Voice</li><li>Integrations</li></ul>
       </div></div>
   </section>
 
@@ -294,32 +331,32 @@ h2.t em{font-size:1.04em}
   <section class="scene s-cap" data-form="vr" data-name="Emerging" data-mix="emerging">
     <div class="sticky">
       <div class="cap-grid pad">
-        <div class="card"><h2 class="t split">The stuff that's <em>still new.</em></h2><p class="body fade">WebGL worlds, 3D product viewers, AR try-ons and interactive installations. If it sits on the edge of what a browser can do, we want it.</p></div>
-        <ul class="tags mono fade"><li>Three.js</li><li>Shaders</li><li>AR</li><li>Real-time 3D</li><li>Spatial UI</li></ul>
+        <div class="card"><h2 class="t split">3D you can <em>step into.</em></h2><p class="body fade">Product configurators, AR try-ons, virtual showrooms and interactive installations that run straight in the browser, with nothing to download. The edge of what the web can do is where we like to work.</p></div>
+        <ul class="tags mono fade"><li>Three.js</li><li>WebGL</li><li>AR</li><li>Real-time 3D</li><li>Spatial UI</li></ul>
       </div></div>
   </section>
 
   <section class="scene s-reel" id="reel" data-form="dust" data-name="Reel" data-mix="reel">
     <div class="sticky">
-      <div class="reel-head"><div class="card"><h2 class="t split">Selected <em>frames.</em></h2></div><span class="mono" style="color:var(--smoke)">Scroll to advance the reel →</span></div>
+      <div class="reel-head"><div class="card"><h2 class="t split">Selected <em>work.</em></h2></div><span class="mono" style="color:var(--smoke)">Scroll to advance the reel →</span></div>
       <div class="reel-view"><div class="track" id="track">
-        <a class="frame" href="#reel" data-lock data-art="topo"><canvas></canvas><div class="f-top mono"><span class="flag">Sample</span></div><div></div><div class="f-bot"><h3>Vexilot</h3><span class="mono">AI · Support agent</span><p>An agent that answers most support tickets before a person has to.</p></div></a>
-        <a class="frame" href="#reel" data-lock data-art="seats"><canvas></canvas><div class="f-top mono"><span class="flag">Sample</span></div><div></div><div class="f-bot"><h3>WebAudit</h3><span class="mono">Web · Event platform</span><p>Live seat maps and payments for a city's busiest venues.</p></div></a>
-        <a class="frame" href="#reel" data-lock data-art="orbit"><canvas></canvas><div class="f-top mono"><span class="flag">Sample</span></div><div></div><div class="f-bot"><h3>DriveFetch</h3><span class="mono">3D · Product configurator</span><p>A furniture catalogue you can spin, recolour and place in your room.</p></div></a>
-        <a class="frame yours" href="https://cal.com/tessarin" target="_blank" rel="noopener" data-lock><span class="mono" style="color:var(--ember)">Unexposed</span><h3>Your project</h3><span class="btn primary">Book a call</span></a>
+        <a class="frame" href="#reel" data-lock data-art="topo"><canvas></canvas><div class="f-top mono"><span class="flag">Sample</span></div><div></div><div class="f-bot"><h3>Vexilot</h3><span class="mono">AI · Support assistant</span><p>Answers most support tickets before your team has to.</p></div></a>
+        <a class="frame" href="#reel" data-lock data-art="seats"><canvas></canvas><div class="f-top mono"><span class="flag">Sample</span></div><div></div><div class="f-bot"><h3>WebAudit</h3><span class="mono">Web · Ticketing</span><p>Live seat maps and checkout that hold up on launch night.</p></div></a>
+        <a class="frame" href="#reel" data-lock data-art="orbit"><canvas></canvas><div class="f-top mono"><span class="flag">Sample</span></div><div></div><div class="f-bot"><h3>DriveFetch</h3><span class="mono">3D · Configurator</span><p>Furniture you can spin, recolour and place in your room before you buy.</p></div></a>
+        <a class="frame yours" href="https://cal.com/tessarin" target="_blank" rel="noopener" data-lock><span class="mono" style="color:var(--ember)">Next on the reel</span><h3>Your project</h3><span class="btn primary">Book a call</span></a>
       </div></div>
     </div>
   </section>
 
   <section class="scene s-proc" data-form="helix" data-name="Process" data-mix="process">
     <div class="sticky"><div class="pad">
-      <div class="card"><h2 class="t split">First call <em>to launch.</em></h2></div>
+      <div class="card"><h2 class="t split">From first call <em>to launch.</em></h2></div>
       <div></div>
       <ol class="steps fade">
-        <li><span class="k mono">Day 01</span><b>Discover</b><span>One call. Your goal, your users, your deadline.</span></li>
-        <li><span class="k mono">Day 03</span><b>Prototype</b><span>Something you can click, within days.</span></li>
-        <li><span class="k mono">Week 02</span><b>Build</b><span>Weekly demos on a live preview link.</span></li>
-        <li><span class="k mono">Launch</span><b>Ship</b><span>Go live, measure, keep improving.</span></li>
+        <li><span class="k mono">Day 01</span><b>Discover</b><span>One focused call about your goal, your users and your deadline.</span></li>
+        <li><span class="k mono">Day 03</span><b>Prototype</b><span>A first version you can click, within days.</span></li>
+        <li><span class="k mono">Week 02</span><b>Build</b><span>A demo every week, on a live link your team can open.</span></li>
+        <li><span class="k mono">Launch</span><b>Ship</b><span>We go live, watch the numbers and keep improving.</span></li>
       </ol>
     </div></div>
   </section>
@@ -327,13 +364,15 @@ h2.t em{font-size:1.04em}
   <section class="scene s-hole" id="contact" data-form="hole" data-name="Contact" data-mix="hole" data-hold-end="2.5">
     <div class="sticky" id="holeStage">
       <div class="lens-dom" id="holeText"><h2 class="hole-l up">Everything bends</h2><h2 class="hole-l dn">toward <em>one point.</em></h2></div>
-      <div class="hole-cta"><span class="magnet" data-magnet><a class="cta-hole" href="https://cal.com/tessarin" target="_blank" rel="noopener" data-lock data-sfx>Book a call <svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M4 14L14 4M14 4H6M14 4v8" stroke="currentColor" stroke-width="1.6"/></svg></a></span></div>
+      <div class="hole-cta"><span class="magnet" data-magnet><a class="cta-hole" href="https://cal.com/tessarin" target="_blank" rel="noopener" data-lock data-sfx>Book a call <svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M4 14L14 4M14 4H6M14 4v8" stroke="currentColor" stroke-width="1.6"/></svg></a></span><p class="hole-note mono">30 minutes with the people who will build it</p></div>
     </div>
   </section>
 
 </main>
 
 <script>
+// The loader's corner logo is the same file as the top bar's.
+document.querySelector(".ld-logo").src=document.querySelector(".lb-mark img").src;
 // Safety net: if WebGL or the CDN modules fail, still let people in.
 setTimeout(function(){if(!window.__tessBoot){var s=document.getElementById("intro");s.classList.add("done","nogl");
   ["enterSound","enterQuiet"].forEach(function(id){document.getElementById(id).onclick=function(){s.classList.add("gone");document.body.classList.remove("locked");document.body.classList.add("open")}})}},8000);
@@ -356,11 +395,12 @@ const phone=()=>innerWidth<=760;
 const LOW=innerWidth<=760||(navigator.hardwareConcurrency||8)<=4;
 const N=LOW?2600:5200;
 const SUB=/[?&]test/.test(location.search)?14:1; // local headless testing only: settle physics faster
+if(SUB>1||/[?&]clock/.test(location.search))window.__tessT=()=>T;   // test hook: the animation clock
 const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
 const $=s=>document.querySelector(s);
 
 /* =========================================================
-   SCORE — generative cinematic soundtrack (Web Audio)
+   SCORE: generative cinematic soundtrack (Web Audio)
    D minor · 96 BPM · strings pad, sub, ostinato, arp, ticks,
    braam, impacts, and glass notes in the current chord.
    ========================================================= */
@@ -517,7 +557,7 @@ const Score=(()=>{
 })();
 
 /* =========================================================
-   STAGE — three.js shards, bloom, film pass
+   STAGE: three.js shards, bloom, film pass
    ========================================================= */
 const canvas=$("#gl");
 let renderer;
@@ -526,7 +566,7 @@ const scene=new THREE.Scene();scene.background=new THREE.Color(0x000000);scene.f
 const camera=new THREE.PerspectiveCamera(35,1,.1,80);camera.position.set(0,0,14);
 let composer,bloom,film,lens;
 /* =========================================================
-   GARGANTUA — a ray-marched Schwarzschild black hole (after Interstellar)
+   GARGANTUA: a ray-marched Schwarzschild black hole (after Interstellar)
    Each pixel's light ray is bent by gravity on its way past the hole (photon equation x'' = −1.5·h²·x/r⁵,
    units of the Schwarzschild radius). Rays that fall in are black; rays that escape sample the rendered
    scene, the bendable copy layer and a star field in the direction they leave, which is what makes
@@ -634,6 +674,13 @@ const sh=new THREE.Shape();sh.moveTo(-.5,-.28);sh.lineTo(.18,-.28);sh.lineTo(.5,
 const geo=new THREE.ExtrudeGeometry(sh,{depth:.2,bevelEnabled:true,bevelThickness:.03,bevelSize:.03,bevelSegments:1});geo.translate(0,0,-.1);geo.scale(.075,.075,.075);
 const matW=new THREE.MeshStandardMaterial({color:0xedeae4,metalness:.55,roughness:.26,envMapIntensity:1.1});
 const matR=new THREE.MeshStandardMaterial({color:0xe74a2a,emissive:0xe74a2a,emissiveIntensity:.75,metalness:.3,roughness:.35});
+// The instance colour of a white shard is not a tint: red is how light it is (the loader orb is graphite, the wordmark
+// bone), green how polished (0 = satin) and blue 1 - heat, so it can glow like cooling metal.
+matW.onBeforeCompile=s=>{s.fragmentShader=s.fragmentShader.replace("#include <color_fragment>","float heat=0.;\n#ifdef USE_COLOR\nheat=clamp(1.-vColor.b,0.,1.);diffuseColor.rgb*=vColor.r;\n#endif")
+  .replace("#include <emissivemap_fragment>","#include <emissivemap_fragment>\ntotalEmissiveRadiance+=mix(vec3(.8,.07,.023),vec3(1.,.6,.36),heat*heat)*heat*2.2;")
+  .replace("#include <metalnessmap_fragment>","#include <metalnessmap_fragment>\n#ifdef USE_COLOR\nroughnessFactor=mix(.62,roughnessFactor,vColor.g);metalnessFactor=mix(.3,metalnessFactor,vColor.g);\n#endif")};
+const ALB=.14;   // how light the orb's shards are before the burst
+const heatC=new THREE.Color();
 
 const P=new Float32Array(N*3),V=new Float32Array(N*3),AX=new Float32Array(N*3),ANG=new Float32Array(N),PH=new Float32Array(N),DEL=new Float32Array(N),RED=new Uint8Array(N),MI=new Uint32Array(N);
 const R=Math.random;
@@ -700,6 +747,8 @@ function buildMeshes(){
   let nw=0,nr=0;for(let i=0;i<N;i++){if(RED[i])MI[i]=nr++;else MI[i]=nw++}
   meshW=new THREE.InstancedMesh(geo,matW,nw);meshR=new THREE.InstancedMesh(geo,matR,nr);
   [meshW,meshR].forEach(m=>{m.instanceMatrix.setUsage(THREE.DynamicDrawUsage);m.frustumCulled=false;scene.add(m)});
+  for(let i=0;i<nw;i++)meshW.setColorAt(i,heatC.setRGB(1,1,1));meshW.instanceColor.setUsage(THREE.DynamicDrawUsage);
+  buildOrb();
 }
 P.set(F.inbound);
 
@@ -728,11 +777,12 @@ function resize(){
   visH=2*14*Math.tan(THREE.MathUtils.degToRad(camera.fov/2));visW=visH*camera.aspect;
   sizeReel();measure();
   clearTimeout(resize.t);resize.t=setTimeout(paintHoleText,150);
-  intro.style.setProperty("--iy",(phone()?42:46)+"%");
+  orbGeom();
 }
 let VRX=0;   // world x of the headset centre
 function introW(){return phone()?innerWidth*.84:Math.min(innerWidth*.56,innerHeight*1.55)}
-function introY(){return (.5-(phone()?.42:.46))*visH}
+const IYF=()=>phone()?.4:.44;   // the orb's centre, as a fraction of the screen height from the top
+function introY(){return (.5-IYF())*visH}
 function place(name){const p=PLACE[name]||PLACE.scatter;
   if(name==="intro")return[introY(),introW()/innerWidth*visW/9];
   if(name==="vr"){const ph=phone();VRX=(ph?-.1:.08)*visW;return[ph?.17*visH:.03*visH,Math.min(1.6,Math.max(.4,(ph?.15:.105)*visW))]}
@@ -1058,7 +1108,7 @@ function memAim(g,i,j,q,o){   // where shard i sits in its journey piece
   const bob=Math.sin(T*.6+g*1.7)*.06;
   o[0]=L[0]*visW*.5*sk+x*s;o[1]=L[1]*visH*.5*sk+bob+y*s;o[2]=z*s;return true;
 }
-const EAT=new Float32Array(N).map((_,i)=>GEAT[GRP[i]]+R()*.06),ORB=new Float32Array(N).map(()=>3.2+R()*6.5),HA=new Float32Array(N).map(()=>R()*6.283);
+const EAT=new Float32Array(N).map((_,i)=>GEAT[GRP[i]]+R()*.06),HORB=new Float32Array(N).map(()=>3.2+R()*6.5),HA=new Float32Array(N).map(()=>R()*6.283);
 const hp=[0,0,0],TILT=.2;
 const DK=()=>1/Math.min(1,innerWidth/innerHeight*.85);   // narrow screens see the hole from farther away so the disk still fits
 function holeLens(q){   // camera distance from the hole (in Schwarzschild radii; 0 = no hole), aim, disk, copy, stars, glow
@@ -1077,7 +1127,7 @@ function holeAim(i,j,q,o){
   const u=(q-EAT[i])/.12;
   if(u<=0){o[0]=hp[0];o[1]=hp[1];o[2]=hp[2];return}
   if(u>=1){o[0]=0;o[1]=0;o[2]=0;MSC=0;return}                                               // through the horizon
-  const kw=14/(28*DK()),rr=ORB[i]*Math.pow(1-u,.85)+.8*u,phi=HA[i]+T*1.4*Math.pow(rr/3,-1.5)+u*u*7;
+  const kw=14/(28*DK()),rr=HORB[i]*Math.pow(1-u,.85)+.8*u,phi=HA[i]+T*1.4*Math.pow(rr/3,-1.5)+u*u*7;
   const dx=rr*kw*Math.cos(phi),dz0=rr*kw*Math.sin(phi),dy=-dz0*Math.sin(TILT),dz=dz0*Math.cos(TILT),wv=sstep(u/.4);
   o[0]=hp[0]+(dx-hp[0])*wv;o[1]=hp[1]+(dy-hp[1])*wv;o[2]=hp[2]+(dz-hp[2])*wv;
   MK=26+50*u;MC=6.5+5*u;MSC*=(1-.6*wv)*(1-sstep((u-.78)/.22));
@@ -1101,9 +1151,95 @@ function paintHoleText(){
   if(tTex)tTex.dispose();tTex=new THREE.CanvasTexture(tCan);tTex.colorSpace=THREE.SRGBColorSpace;lens.uniforms.uText.value=tTex;
 }
 
+/* ---------- loader: the orb ----------
+   While the page loads, the shards build an orb from the bottom up. White shards take slots on a sphere laid along a
+   Fibonacci spiral (equal area per slot, so the share of pieces placed is the share loaded), each facing outward with
+   its long side along the latitude. Each one streams in from outside on a curve, lands hot and cools to bone, so a band
+   of heat rises with the build. Ember shards churn in a core that lights the inside of the shell. The orb turns about
+   a leaning axis (we look a little into its open top while it builds), leans toward the pointer, and shards under the
+   pointer lift off the surface. On Enter it pulls in for a beat and bursts; the pieces then build the wordmark. */
+const ORB={S:null,go:-1,doneT:-1,placed:0,nW:0,yaw:0,px:0,py:0,la:0,R:1.5,y:0,sh:1,heat:false,FLY:RM?0:.6};
+const ORBQ=new THREE.Quaternion(),OE=new THREE.Euler(),oq=new THREE.Quaternion(),oq2=new THREE.Quaternion(),ov=new THREE.Vector3(),oax=new THREE.Vector3(),OUP=new THREE.Vector3(0,1,0);
+const coreL=new THREE.PointLight(0xe74a2a,0,6,1.4);scene.add(coreL);
+// the light sealed inside: the far inner wall of the orb glows ember, but only as high as the shell has been built
+const glowM=new THREE.ShaderMaterial({uniforms:{uFront:{value:-1.2},uI:{value:0},uT:{value:0}},side:THREE.BackSide,depthWrite:false,fog:false,
+  vertexShader:`varying vec3 vP;void main(){vP=position;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
+  fragmentShader:`uniform float uFront,uI,uT;varying vec3 vP;void main(){float f=smoothstep(uFront+.02,uFront-.3,vP.y);if(f<=0.)discard;
+    float n=.78+.22*sin(vP.x*6.+uT*1.3)*sin(vP.z*5.-uT*1.1+vP.y*3.);gl_FragColor=vec4(vec3(.8,.07,.023)*uI*f*n,1.);}`});
+const glow=new THREE.Mesh(new THREE.SphereGeometry(1,40,28),glowM);glow.visible=false;glow.frustumCulled=false;scene.add(glow);
+function orbGeom(){const O=ORB;O.y=introY();O.R=Math.min(visH*.19,visW*.3);O.sh=O.nW?Math.sqrt(.54*4*Math.PI*O.R*O.R/O.nW/.00214):1;   // .00214: area of one shard
+  intro.style.setProperty("--iy",(IYF()*innerHeight).toFixed(1)+"px");intro.style.setProperty("--orb",(O.R/visH*innerHeight).toFixed(1)+"px")}
+function buildOrb(){
+  let nW=0;for(let i=0;i<N;i++)if(!RED[i])nW++;const nR=N-nW,O=ORB;O.nW=nW;
+  O.S=new Float32Array(N*3);O.Q=new Float32Array(N*4);O.QF=new Float32Array(N*4);O.K=new Float32Array(N);O.LT=new Float32Array(N).fill(-1);
+  O.D=new Float32Array(N);O.SW=new Float32Array(N);O.C=new Float32Array(N*6);O.CW=new Float32Array(N);
+  const m=new THREE.Matrix4(),q=new THREE.Quaternion(),ex=new THREE.Vector3(),ey=new THREE.Vector3(),ez=new THREE.Vector3(),u=new THREE.Vector3(),v=new THREE.Vector3();
+  let w=0,r=0;const sp=Math.sqrt(4*Math.PI/nW);   // slot spacing on the unit sphere
+  for(let i=0;i<N;i++){const j=i*3;O.D[i]=1.7+R()*1.5;O.SW[i]=(R()<.5?-1:1)*(.7+R()*.9);   // how far out it starts, how far round it swings in
+    if(!RED[i]){const k=w++,y=-1+2*(k+.5)/nW,rr=Math.sqrt(1-y*y),ph=k*2.399963;   // golden angle
+      ez.set(rr*Math.cos(ph),y,rr*Math.sin(ph));ex.set(-Math.sin(ph),0,Math.cos(ph));ey.crossVectors(ez,ex);
+      ez.addScaledVector(ex,(R()-.5)*.5*sp).addScaledVector(ey,(R()-.5)*.5*sp).normalize();O.S[j]=ez.x;O.S[j+1]=ez.y;O.S[j+2]=ez.z;   // a little jitter hides the spiral lattice
+      ex.crossVectors(OUP,ez);if(ex.lengthSq()<1e-6)ex.set(1,0,0);ex.normalize();ey.crossVectors(ez,ex);m.makeBasis(ex,ey,ez);q.setFromRotationMatrix(m);q.toArray(O.Q,i*4);
+      O.K[i]=.04+.94*k/nW}                                                       // loading progress at which it sets off
+    else{const k=r++;   // the core: a churning ball, each ember shard on its own tilted orbit
+      u.set(R()-.5,R()-.5,R()-.5).normalize();v.set(R()-.5,R()-.5,R()-.5).cross(u).normalize();
+      O.C[i*6]=u.x;O.C[i*6+1]=u.y;O.C[i*6+2]=u.z;O.C[i*6+3]=v.x;O.C[i*6+4]=v.y;O.C[i*6+5]=v.z;
+      O.S[j]=.1+.3*Math.pow(R(),.7);O.S[j+1]=R()*6.283;O.CW[i]=(R()<.5?-1:1)*(.6+R()*1.4);
+      O.K[i]=.1*k/Math.max(1,nR)}
+  }
+  orbGeom();
+}
+function orbFrame(dt){
+  const O=ORB,R0=O.R,go=O.go>=0?sstep((T-O.go)/.2):0,pr=Math.min(1,prog);
+  if(!RM)O.yaw+=dt*.26;
+  O.px+=((mouse.active?mouse.x:0)-O.px)*.05;O.py+=((mouse.active?mouse.y:0)-O.py)*.05;O.la+=((mouse.active&&!phone()?1:0)-O.la)*.05;
+  OE.set(.42-O.py*.35,O.yaw+O.px*.7,0,"XYZ");ORBQ.setFromEuler(OE);
+  const wx=mouse.x*visW/2,wy=mouse.y*visH/2,LR=1/(.1*R0*R0),dn=O.doneT>=0?T-O.doneT:-1,core=sstep(pr/.12);
+  coreL.position.set(0,O.y,0);coreL.intensity=(RM?22:22+5*Math.sin(T*2.3))*core*(1+2*go);
+  let fr=-1.2;
+  matR.emissiveIntensity=1.1+.35*Math.sin(T*2.3)+2*go;
+  for(let i=0;i<N;i++){const j=i*3,mesh=RED[i]?meshR:meshW;let lt=O.LT[i];
+    if(lt<0&&pr>=O.K[i]){O.LT[i]=lt=T;O.placed++}
+    if(lt<0){dummy.position.set(0,O.y,-30);dummy.scale.setScalar(0);dummy.updateMatrix();mesh.setMatrixAt(MI[i],dummy.matrix);continue}
+    const u=O.FLY?Math.min(1,(T-lt)/O.FLY):1,far=Math.pow(1-u,3),sw=O.SW[i]*far,c=Math.cos(sw),sn=Math.sin(sw);
+    let s;
+    if(!RED[i]){
+      const sx=O.S[j],sy=O.S[j+1],sz=O.S[j+2];if(u>=1&&sy>fr)fr=sy;
+      let rad=R0*(1+(O.D[i]-1)*far)*(1-.24*go);
+      if(dn>=0&&!RM)rad*=1+.012*Math.sin(T*2.1-sy*3.5)*Math.min(1,dn);          // breathing once complete
+      ov.set((sx*c+sz*sn)*rad,sy*rad,(-sx*sn+sz*c)*rad*(1-.4*far)).applyQuaternion(ORBQ);
+      if(O.la>.01&&u>=1){const nz=ov.z/rad;if(nz>0){const dx=ov.x-wx,dy=ov.y+O.y-wy;ov.multiplyScalar(1+Math.exp(-(dx*dx+dy*dy)*LR)*nz*.2*O.la)}}   // lift under the pointer
+      const land=T-lt-O.FLY;
+      let heat=u<1?.2+.6*u:.8*Math.exp(-land*3);
+      if(dn>=0){const wp=1.15-dn*1.9;heat+=.4*Math.exp(-Math.pow((sy-wp)/.14,2))}   // once complete, a seal of heat runs down the orb
+      heat=Math.min(1,heat+.5*go);
+      s=O.sh*Math.min(1,u*3.5)*(1+(land>0?.4*Math.exp(-land*12):0));
+      oq.fromArray(O.Q,i*4);if(far>0){oq2.setFromAxisAngle(oax.set(AX[j],AX[j+1],AX[j+2]),far*7);oq.multiply(oq2);oq2.setFromAxisAngle(OUP,sw);oq.premultiply(oq2)}
+      oq.premultiply(ORBQ);
+      heatC.setRGB(ALB,0,1-heat);meshW.setColorAt(MI[i],heatC);
+    }else{
+      const a=T*O.CW[i]*(RM?0:1)+O.S[j+1],ca=Math.cos(a),sa=Math.sin(a),C=O.C,k6=i*6,rc=O.S[j]*R0*(1-.45*go)*(1+.06*Math.sin(T*3+PH[i]));
+      const cx=(C[k6]*ca+C[k6+3]*sa)*rc,cy=(C[k6+1]*ca+C[k6+4]*sa)*rc,cz=(C[k6+2]*ca+C[k6+5]*sa)*rc,fd=O.D[i]*R0;
+      ov.set(cx+(fd*AX[j]-cx)*far,cy+(fd*AX[j+1]-cy)*far,cz+(fd*AX[j+2]*.5-cz)*far);
+      s=.95*Math.min(1,u*3.5);
+      oq.setFromAxisAngle(oax.set(AX[j],AX[j+1],AX[j+2]),T*1.7+PH[i]*3);
+    }
+    ov.y+=O.y;P[j]=ov.x;P[j+1]=ov.y;P[j+2]=ov.z;V[j]=V[j+1]=V[j+2]=0;oq.toArray(O.QF,i*4);
+    dummy.position.copy(ov);dummy.quaternion.copy(oq);dummy.scale.setScalar(s);dummy.updateMatrix();mesh.setMatrixAt(MI[i],dummy.matrix);
+  }
+  meshW.instanceMatrix.needsUpdate=true;meshR.instanceMatrix.needsUpdate=true;meshW.instanceColor.needsUpdate=true;
+  const gu=glowM.uniforms;O.fr=O.fr===undefined?fr:O.fr+(fr-O.fr)*.15;gu.uFront.value=O.fr>=.995?1.2:O.fr;gu.uT.value=T;gu.uI.value=(1.5+.3*Math.sin(T*1.7))*(1+1.5*go);
+  glow.visible=true;glow.position.set(0,O.y,0);glow.quaternion.copy(ORBQ);glow.scale.setScalar(R0*.9*(1-.24*go));
+}
+// the counter: a mechanical odometer, each wheel turns over while the wheel to its right passes 9 to 0
+const DG=[$("#dg0"),$("#dg1"),$("#dg2")],DGv=[0,0,0],ldPieces=$("#ldPieces"),ldState=$("#ldState");
+$("#ldTotal").textContent=N.toLocaleString("en-US");
+function odo(v){const o=Math.floor(v),f=sstep(v-o),w=[Math.floor(o/100)+(o%100===99?f:0),Math.floor(o/10)%10+(o%10===9?f:0),o%10+f];
+  for(let k=0;k<3;k++){const x=Math.round(w[k]*1000)/1000;if(x!==DGv[k]){DGv[k]=x;DG[k].style.transform=`translateY(${(-x*1.15).toFixed(4)}em)`}}}
+
 /* ---------- main loop ---------- */
-let prog=0,loadCap=.7,introDone=false,introShockT=-1,introKick=false,kickS=1;   // intro: loading progress drives the assembly
-const intro=$("#intro"),ldPct=$("#ldPct");let shownCount=-1;
+let prog=0,loadCap=.7,introDone=false,introShockT=-1,introKick=false,kickS=1;   // intro: loading progress drives the orb
+const intro=$("#intro");let shownCount=-1;
 let lastHq=-1,lenis=null;
 let entered=false,enterT=0,T=0,lastIdx=-1,camZ=14,vel=0,lastY=scrollY;
 const clock=new THREE.Clock(),dummy=new THREE.Object3D(),ta=[0,0,0],tb=[0,0,0];
@@ -1112,11 +1248,14 @@ function frame(){
   requestAnimationFrame(frame);
   const rdt=clock.getDelta(),dt=Math.min(rdt,1/30);T+=dt;
   if(!entered&&!introDone){
-    prog=Math.min(loadCap,prog+Math.min(rdt,.25)/(RM?1.2:2.9));
-    intro.style.setProperty("--p",prog.toFixed(4));
-    const c=Math.round(prog*100);if(c!==shownCount){shownCount=c;ldPct.textContent=c}
-    if(prog>=1){introDone=true;intro.classList.add("done");document.body.classList.add("cine")}
+    prog=Math.min(loadCap,prog+dt/(RM?1.2:3.2));   // on the same clock as the shards, so the build always matches the count
+    intro.style.setProperty("--p",prog.toFixed(4));odo(prog*100);
+    if(ORB.placed!==shownCount){shownCount=ORB.placed;ldPieces.textContent=ORB.placed.toLocaleString("en-US")}
+    if(prog>=1){introDone=true;ORB.doneT=T;intro.classList.add("done");ldState.textContent="Assembled";ldPieces.textContent=N.toLocaleString("en-US");if(bloom)bloom.strength=.75}
   }
+  if(!entered&&ORB.go>=0&&T-ORB.go>=.2)release();   // Enter: the orb pulls in for a beat, then bursts
+  if(entered&&coreL.intensity>0)coreL.intensity=coreL.intensity>.02?coreL.intensity*Math.exp(-dt*5):0;
+  if(entered&&glow.visible){const gu=glowM.uniforms;gu.uI.value*=Math.exp(-dt*28);if(gu.uI.value<.03)glow.visible=false}   // the sealed light goes out with the burst
   if(lenis)lenis.raf(performance.now());   // one ticker: smooth scroll and the 3D move in the same frame
   const y=scrollY;const dy=y-lastY;lastY=y;vel+=((Math.abs(dy)/Math.max(dt,1e-3))/1000-vel)*.12;
   const st=readScroll(y);const k=st.k,f=st.f,k2=Math.min(names.length-1,k+1);
@@ -1187,7 +1326,9 @@ function frame(){
   cur.position.set(cur.position.x+(wx-cur.position.x)*.2,cur.position.y+(wy-cur.position.y)*.2,camZ-12.6);
   cur.intensity+=((live&&!phone()?7:0)-cur.intensity)*.08;
 
-  if(meshW)for(let sub=0;sub<SUB;sub++){
+  let hb=-1,alb=1;if(ORB.heat){const t=T-enterT;hb=.55*Math.exp(-t*3.2);alb=ALB+(1-ALB)*sstep(t/.9);if(t>1.6){hb=0;alb=1;ORB.heat=false}}   // the burst cools and turns to bone as it flies
+  if(meshW&&!entered&&ORB.S)orbFrame(dt);
+  else if(meshW)for(let sub=0;sub<SUB;sub++){
     const sinceEnter=T-enterT,RAD=phone()?1:1.25,RAD2=RAD*RAD,push=RM?12:36,stiff=RM?60:26,dmp=Math.exp(-(RM?12:6.5)*dt);
     const stretchBase=RM?0:Math.min(3,vel*.9);let hits=0;
     for(let i=0;i<N;i++){
@@ -1200,14 +1341,13 @@ function frame(){
         const free=(nA==="tunnel"?1-f:0)+(nB==="tunnel"?f:0);   // tunnel lives in world space, not scaled
         const s2=sc*(1-free)+free;
         tx=(ta[0]+(tb[0]-ta[0])*f)*s2;ty=(ta[1]+(tb[1]-ta[1])*f)*s2+oy*(1-free);tz=(ta[2]+(tb[2]-ta[2])*f)*s2;
-        if(!entered){tx=0;ty=introY();tz=0}   // hidden inside the loader shard until Enter
         tx+=Math.sin(T*.8+PH[i])*.012;ty+=Math.cos(T*.7+PH[i])*.012;
         k2s=RED[i]?stiff*(1-.6*wordW):stiff;    // ember shards move at an easy pace inside words
       }
       let sg=1;
       if(sgOn){let w=0;for(let q=0;q<SIG.n;q++){const dx=P[j]-SX[q];w+=Math.exp(-dx*dx/.15)}sg=1+(RED[i]?1.2:.18)*Math.min(1,w)}   // what lies beneath lights up as a star passes over
       let vx=V[j],vy=V[j+1],vz=V[j+2];
-      if(introKick&&sub===0){const ex=P[j]+(R()-.5)*.02,ey=P[j+1]-IOY+(R()-.5)*.02,el=Math.hypot(ex,ey)||1,sp0=(1.5+R()*4.5)*kickS;vx+=ex/el*sp0;vy+=ey/el*sp0;vz+=(R()-.25)*5*kickS}   // entry strike: the wordmark bursts and re-forms
+      if(introKick&&sub===0){const ex=P[j]+(R()-.5)*.02,ey=P[j+1]-IOY+(R()-.5)*.02,ez=P[j+2],el=Math.hypot(ex,ey,ez)||1,sp0=(2.5+R()*5)*kickS;vx+=ex/el*sp0;vy+=ey/el*sp0;vz+=ez/el*sp0+(R()-.5)*2*kickS}   // entry strike: the orb bursts outward
       if(kick&&bs>0){const ex=tx-SPw[0],ey=ty-SPw[1],ez=tz-SPw[2],el=Math.hypot(ex,ey,ez)||1,sp0=5+R()*4;vx+=ex/el*sp0;vy+=ey/el*sp0;vz+=ez/el*sp0}   // shockwave burst
       vx+=(tx-P[j])*k2s*dt;vy+=(ty-P[j+1])*k2s*dt;vz+=(tz-P[j+2])*k2s*dt;
       if(live&&tunnelW<.5&&mp<0&&vq<0&&vrW<.5){const dx=P[j]-wx,dy2=P[j+1]-wy,d2=dx*dx+dy2*dy2;
@@ -1216,17 +1356,19 @@ function frame(){
       const sp=Math.sqrt(vx*vx+vy*vy+vz*vz);
       ANG[i]=ANG[i]*Math.exp(-(RM?6:tS>.3?7:2.2)*dt)+sp*dt*(RM?0:3)*(1-tunnelW);
       const a=ANG[i];dummy.position.set(P[j],P[j+1],P[j+2]);dummy.rotation.set(AX[j]*a,AX[j+1]*a,AX[j+2]*a);
+      if(ORB.QF&&sinceEnter<.7){oq.fromArray(ORB.QF,i*4);oq.slerp(dummy.quaternion,sstep(sinceEnter/.7));dummy.quaternion.copy(oq)}   // ease out of the orb's tiling
       // half the shards sit the tunnel out, so the copy has room
-      const base=bs>=0?bs:(RED[i]?1.25*(1-wordW+wordW*(FUSE(i)?.55+.5*Math.abs(Math.sin(T*1.2+PH[i]*3)):0)):1-.3*wordW)*(VX?1-vrW*(RED[i]?.5:1-.48*VX.SC[i]):1);const zs=1+tunnelW*(5+Math.min(20,vel*6))+stretchBase*.4;const ar=(entered?Math.min(1,(T-enterT)/.3):0)*(PH[i]>3.14?1-tunnelW:1),bb=base*sg*ar;dummy.scale.set(bb,bb,bb*zs);
-      if(sub===SUB-1){dummy.updateMatrix();(RED[i]?meshR:meshW).setMatrixAt(MI[i],dummy.matrix)}
+      const base=bs>=0?bs:(RED[i]?1.25*(1-wordW+wordW*(FUSE(i)?.55+.5*Math.abs(Math.sin(T*1.2+PH[i]*3)):0)):1-.3*wordW)*(VX?1-vrW*(RED[i]?.5:1-.48*VX.SC[i]):1);const zs=1+tunnelW*(5+Math.min(20,vel*6))+stretchBase*.4;const osh=ORB.QF&&sinceEnter<.8&&!RED[i]?1+(ORB.sh-1)*(1-sstep(sinceEnter/.8)):1;   // orb tiles shrink back to shard size
+      const ar=(entered?1:0)*(PH[i]>3.14?1-tunnelW:1),bb=base*sg*ar*osh;dummy.scale.set(bb,bb,bb*zs);
+      if(sub===SUB-1){dummy.updateMatrix();(RED[i]?meshR:meshW).setMatrixAt(MI[i],dummy.matrix);if(hb>=0&&!RED[i]){heatC.setRGB(alb,(alb-ALB)/(1-ALB),1-hb*(.55+.45*Math.sin(PH[i]*5)));meshW.setColorAt(MI[i],heatC)}}
     }
     if(sub===0){introKick=false;kickS=1}
     if(sub<SUB-1)continue;
-    meshW.instanceMatrix.needsUpdate=true;meshR.instanceMatrix.needsUpdate=true;sigDraw();
+    meshW.instanceMatrix.needsUpdate=true;meshR.instanceMatrix.needsUpdate=true;if(hb>=0)meshW.instanceColor.needsUpdate=true;sigDraw();
     disturb+=hits*dt*.35;while(disturb>1){disturb-=1;Score.glass(mouse.x,.6+R()*.5)}if(disturb>3)disturb=3;
   }
   if(renderer){
-    const vrB=vq>=0?1:vrW;bloom.threshold=.62+.26*vrB;   // around the headset only the ember (and the odd highlight) clears the threshold
+    const vrB=vq>=0?1:vrW;bloom.threshold=entered?.62+.26*vrB:.72;   // around the headset only the ember (and the odd highlight) clears the threshold
     if(vq>=0)bloom.strength+=(.4-bloom.strength)*.08;
     else if(mp<0)bloom.strength+=((.55-.42*wordW-.15*vrW)-bloom.strength)*.06;
     else if(tS<0)bloom.strength+=((.13+.25*clamp01((mp-.2)/.2))-bloom.strength)*.08;
@@ -1243,13 +1385,31 @@ function frame(){
     const cu=film.uniforms;cu.uTime.value=T;cu.uCA.value=RM?.001:.0009+Math.min(.012,vel*.003)+tunnelW*.004;composer.render(dt)}
 }
 
-/* ---------- cursor: one ember shard ---------- */
-const vf=$("#vf");let lockEl=null;const vfs={x:innerWidth/2,y:innerHeight/2};
-document.querySelectorAll("[data-lock]").forEach(el=>{el.addEventListener("pointerenter",()=>{lockEl=el;vf.classList.add("lock");Score.blip()});el.addEventListener("pointerleave",()=>{if(lockEl===el){lockEl=null;vf.classList.remove("lock")}})});
-addEventListener("pointerdown",()=>vf.classList.add("press"));addEventListener("pointerup",()=>vf.classList.remove("press"));
-(function vfLoop(){requestAnimationFrame(vfLoop);
-  vfs.x+=(mouse.cx-vfs.x)*.42;vfs.y+=(mouse.cy-vfs.y)*.42;
-  vf.style.transform=`translate3d(${vfs.x}px,${vfs.y}px,0)`})();
+/* ---------- cursor: a hollow ring of liquid glass ---------- */
+const vf=$("#vf"),vfr=vf.firstElementChild;let lockEl=null;const vfs={x:innerWidth/2,y:innerHeight/2,h:0,p:0,s:0,a:0,down:false,t:performance.now()};
+// Chromium browsers can refract through an SVG filter in backdrop-filter; others keep the frosted fallback.
+// The lens map: a glass tube bent into a ring. Each pixel of the band looks back toward the middle of the tube,
+// gently near the middle and strongly at the edges (red = x offset, green = y offset, 128 = none).
+if(navigator.userAgentData&&navigator.userAgentData.brands.some(b=>/Chromium/.test(b.brand))){
+  const S=42,K=2,n=S*K,c=document.createElement("canvas");c.width=c.height=n;const x=c.getContext("2d"),d=x.createImageData(n,n),r0=S/2*.65,r1=S/2,rc=(r0+r1)/2,hw=(r1-r0)/2;
+  for(let py=0;py<n;py++)for(let px=0;px<n;px++){const X=(px+.5)/K-S/2,Y=(py+.5)/K-S/2,r=Math.hypot(X,Y),t=Math.max(-1,Math.min(1,(r-rc)/hw)),k=(py*n+px)*4;
+    let dx=0,dy=0;if(r>.01&&r<r1+1){const g=Math.sign(t)*Math.pow(Math.abs(t),1.8);dx=-g*X/r;dy=-g*Y/r}
+    d.data[k]=Math.round(127.5+127.5*dx);d.data[k+1]=Math.round(127.5+127.5*dy);d.data[k+2]=128;d.data[k+3]=255}
+  x.putImageData(d,0,0);$("#lgMap").setAttribute("href",c.toDataURL());vf.classList.add("refract");
+}
+document.querySelectorAll("[data-lock]").forEach(el=>{el.addEventListener("pointerenter",()=>{lockEl=el;Score.blip()});el.addEventListener("pointerleave",()=>{if(lockEl===el)lockEl=null})});
+addEventListener("pointerdown",()=>vfs.down=true);addEventListener("pointerup",()=>vfs.down=false);
+(function vfLoop(now){requestAnimationFrame(vfLoop);const dt=Math.min(.05,Math.max(.004,(now-vfs.t)/1000));vfs.t=now;
+  const ox=vfs.x,oy=vfs.y,f=1-Math.pow(.62,dt*60);   // trails the pointer the same at any frame rate
+  vfs.x+=(mouse.cx-vfs.x)*f;vfs.y+=(mouse.cy-vfs.y)*f;
+  const vx=(vfs.x-ox)/dt,vy=(vfs.y-oy)/dt,sp=Math.hypot(vx,vy);
+  vfs.s+=((RM?0:Math.min(.14,sp/4200))-vfs.s)*.25;if(sp>30)vfs.a=Math.atan2(vy,vx);   // a little stretch along fast moves
+  const lk=!!(lockEl&&lockEl.isConnected&&!lockEl.closest(".gone"));vfs.h+=((lk?1:0)-vfs.h)*.2;vfs.p+=((vfs.down?1:0)-vfs.p)*.3;
+  const S=(1+.62*vfs.h)*(1-.16*vfs.p),sx=S*(1+vfs.s),sy=S*(1-vfs.s*.55);
+  vf.classList.toggle("on",mouse.active);vf.classList.toggle("lock",vfs.h>.5);
+  vf.style.transform=`translate3d(${vfs.x.toFixed(2)}px,${vfs.y.toFixed(2)}px,0)`;
+  vfr.style.transform=`rotate(${vfs.a.toFixed(3)}rad) scale(${sx.toFixed(4)},${sy.toFixed(4)}) rotate(${(-vfs.a).toFixed(3)}rad)`})(performance.now());
+document.body.classList.add("cine");
 // magnetic CTA
 document.querySelectorAll("[data-magnet]").forEach(m=>{addEventListener("pointermove",e=>{const r=m.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2,dx=e.clientX-cx,dy=e.clientY-cy,d=Math.hypot(dx,dy);
   m.style.transform=d<160&&!RM?`translate(${dx*.18}px,${dy*.25}px)`:"translate(0,0)"},{passive:true})});
@@ -1258,15 +1418,18 @@ document.querySelectorAll("[data-magnet]").forEach(m=>{addEventListener("pointer
 let IOY=0;
 if(!renderer){intro.classList.add("nogl");document.body.classList.add("nogl")}
 function enter(withSound){
-  if(entered) return;
+  if(entered||ORB.go>=0) return;
   Score.init();Score.setOn(withSound);store.set("tess-sound",withSound?"1":"0");syncSound();
-  Score.clack();Score.braam();
-  IOY=introY();const sw=Math.min(110,Math.max(72,innerWidth*.075))/innerWidth*visW;
-  for(let i=0;i<N;i++){const j=i*3,u=R()-.5,v=R()-.5;P[j]=u*sw*.68+v*sw*.32;P[j+1]=IOY+v*sw*.56;P[j+2]=(R()-.5)*.1;V[j]=V[j+1]=V[j+2]=0}   // inside the loader shard
-  if(!RM){introShockT=T;introKick=true;kickS=1.35;if(bloom)bloom.strength=1.15}
+  Score.clack();lockEl=null;
   intro.classList.add("gone");document.body.classList.remove("locked");document.body.classList.add("open","cine");
-  entered=true;enterT=T;measure();
+  ORB.go=T;if(RM||!ORB.S||!meshW)release();
   if(!RM&&window.Lenis)lenis=new Lenis({lerp:.085,smoothWheel:true,autoRaf:false});
+}
+function release(){   // the orb bursts and its pieces fly off to build the wordmark
+  if(entered)return;Score.braam();
+  IOY=ORB.y;ORB.heat=true;
+  if(!RM){introShockT=T;introKick=true;kickS=2;if(bloom)bloom.strength=.9}
+  entered=true;enterT=T;measure();
 }
 function syncSound(){const on=Score.on;document.body.classList.toggle("sound-on",on);$("#soundBtn").setAttribute("aria-pressed",String(on));$("#soundLbl").textContent=on?"Sound on":"Sound off"}
 $("#enterSound").addEventListener("click",()=>enter(true));

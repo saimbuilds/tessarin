@@ -1,6 +1,6 @@
-# Tessarin Studio: website prototype (v4)
+# Tessarin Studio: website prototype (v8)
 
-The tessarin.studio site as a short film you scroll through: an intro where one shard fills as the page loads and then bursts into the wordmark, letterbox scenes, logo-shard 3D with bloom, a generative cinematic score, a simple shard cursor, and an Interstellar-style finale: everything from the journey (the wordmark, WEB, AI, the headset, the DNA) is pulled into a black hole that bends the copy, the camera dives into the glowing disk, and Book a call appears inside the light. The rules behind every design decision are in [`docs/DESIGN.md`](docs/DESIGN.md).
+The tessarin.studio site as a short film you scroll through: an intro where the shards tessellate a glowing orb as the page loads and then burst into the wordmark, letterbox scenes, logo-shard 3D with bloom, a generative cinematic score, a hollow Liquid Glass ring cursor with an ember outline, and an Interstellar-style finale: everything from the journey (the wordmark, WEB, AI, the headset, the DNA) is pulled into a black hole that bends the copy, the camera dives into the glowing disk, and Book a call appears inside the light. The rules behind every design decision are in [`docs/DESIGN.md`](docs/DESIGN.md), and every word on the site, with the voice rules, is in [`docs/COPY.md`](docs/COPY.md).
 
 ## Run it in VS Code
 
@@ -35,6 +35,7 @@ This writes `dist/tessarin-standalone.html`, with the fonts and logo inlined, so
 | `index.html` | The whole site: markup, CSS, and one `<script type="module">` |
 | `brand/` | Logo (original JPG + transparent PNG) and self-hosted fonts (`fonts/fonts.css`) |
 | `docs/DESIGN.md` | Design system: concept, colour, type, motion, sound, components |
+| `docs/COPY.md` | Copy deck: the voice rules and every line on the site, in scroll order |
 | `docs/kode-teardown-and-site-plan.md` | Kode Immersive teardown and the original plan |
 | `archive/v1-prototype.html` | The first prototype, kept for reference |
 | `dist/` | Standalone build output |
@@ -46,6 +47,8 @@ This writes `dist/tessarin-standalone.html`, with the fonts and logo inlined, so
 - **Hole choreography**: the scroll timeline for the finale (`holeLens()` for the lens, the dive and the glow, `holeAim()` for the shards). The comment above it lists what happens at each point of the scroll.
 - **`GARGANTUA`**: the black hole shader. `glow()` in it is the inside of the disk where Book a call appears.
 - **`MEM` / `memAim()`**: where each piece of the journey sits around the black hole (wide and narrow screens) before it falls in. `GEAT` sets when each piece starts to fall.
+- **Loader: the orb** (`ORB`, `buildOrb()`, `orbFrame()`): the preloader orb. `IYF` sets its height on screen, `orbGeom()` its size, `ALB` how dark its shards are before the burst, `odo()` the rolling counter.
+- **Cursor** (search `liquid glass`): the hollow glass ring. The lens map is drawn in JS into the `#lgRefract` SVG filter; the look of the rim is the `.cur` CSS.
 - **`STAGE`**: three.js scene, bloom + film post-processing (chromatic aberration, grain, vignette), and the shard meshes.
 - **Formations** (`F.logo`, `F.tunnel`, `F.helix`, the WEB/AI words, the VR headset, …): the shapes the shards build. `PLACE` sets their position, scale and motion.
 - **Scroll model**: `measure()` and `readScroll()` map scroll position to "hold" and "transition" ranges for each `.scene`.

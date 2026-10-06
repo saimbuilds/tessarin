@@ -51,7 +51,7 @@ Discover (strategy, style tiles) → Create (prototype design, 3D and code in pa
 ## Part 2: The plan for tessarin.studio
 
 ### The core idea: build the site out of tesserae
-"Tessarin" sounds like **tessera**, the small tiles a mosaic is made of. That gives you a concept nobody else in Pakistan (or most places) can copy, because it comes from your name:
+"Tessarin" sounds like **tessera**, the small tiles a mosaic is made of. That gives you a concept almost nobody else can copy, because it comes from your name:
 
 > **Small pieces → one picture.** The agency is a set of sharp young builders who snap together into whatever a client needs. That honestly *is* your hiring model.
 
@@ -88,7 +88,7 @@ The whole site is made of thousands of small 3D tiles, rendered as one BatchedMe
 | 3D authoring | **Blender** (free) → glTF, compressed with **Draco/Meshopt + KTX2** | C4D costs money, and most of our geometry is procedural tiles anyway |
 | AI scoper | **Claude API** route plus **Resend** for email | |
 | Hosting | **Vercel** + tessarin.studio domain | Free tier is enough to start |
-| Fallbacks | `prefers-reduced-motion` and low-power detection → a lighter 2D version | Mobile users in Pakistan are often on mid-range Android over 4G, so this matters a lot |
+| Fallbacks | `prefers-reduced-motion` and low-power detection → a lighter 2D version | Many mobile visitors are on mid-range Android over 4G, so this matters a lot |
 
 **Performance budget:** under 2.5 MB for first load before the gate, 60 fps on desktop, 30+ fps on a mid-range Android, and the gate shows within about 1 s.
 
@@ -111,7 +111,7 @@ See the thread reply for the short version. Full list:
 5. **Projects to show:** list whatever you *have* (even half-built, university or hackathon projects) with links. I'll decide what goes in the Lab.
 6. **AI scoper:** OK to use the Claude API for it? Who pays for the API key, and which email should leads go to?
 7. **Contact channels:** WhatsApp number, email, Calendly? Which one do you want clients to use first?
-8. **Target clients:** local Pakistani businesses, international (US/UK/Gulf) startups, or both? This changes the copy tone, pricing signals and timezone messaging.
+8. **Target clients:** local businesses, international startups, or both? (Answered: any location.) This changes the copy tone, pricing signals and timezone messaging.
 9. **Team section:** show founders' faces and names, or keep it collective ("Tessarin is a crew")?
 10. **Sound:** any budget for a sound designer or paid SFX pack, or free/CC0 only for now?
 11. **Domain/hosting:** do you own tessarin.studio already? Is Vercel fine?

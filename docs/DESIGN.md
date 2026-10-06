@@ -10,7 +10,7 @@ The site isn't a brochure. It plays like a **short film you scroll through**: an
 
 | Film device | What it does on the site |
 |---|---|
-| One-shard intro (preloader) | While the page loads, a single shard (the accent from the logo) fills with ember along its own slant. On Enter it bursts, and its pieces fly out and build the wordmark: everything starts from one piece. The Enter click is the gesture browsers need before sound can play |
+| Orb intro (preloader) | While the page loads, the logo's shards tessellate an orb around an ember core, laid from the bottom up. Each one lands hot and cools, so a molten edge rises with the build; a big odometer counter and a real piece count ("2,431 / 5,200 pieces") track it. On Enter the orb pulls in for a beat and bursts, and its pieces build the wordmark. The Enter click is the gesture browsers need before sound can play |
 | Letterbox bars | Frame every screen at a 2.39:1 feel. The nav lives inside the bars |
 | Scene numbers + timecode | Show where you are (SC.03 / WEB) and that the "film" is running |
 | Closed captions | One line of copy per scene, written like subtitles: `[low strings swell] We build…` |
@@ -19,7 +19,7 @@ The site isn't a brochure. It plays like a **short film you scroll through**: an
 
 **The hero object is the logo's own accent shard.** The slanted red-orange tile on the "r" is the atom of the brand. Thousands of these shards build the wordmark, fly apart into a tunnel the camera dives through, and re-form into each service. We never use generic particles, stock 3D or icons.
 
-**One piece in, one point out.** The film opens with one shard and ends at one point (the Book a call button inside the light). Everything in between is built from that shard and, at the end, falls back in.
+**Many pieces in, one point out.** The film opens with the shards assembling one orb and ends at one point (the Book a call button inside the light). Everything in between is built from those shards and, at the end, falls back in.
 
 **Positioning in one line:** young, fast, unreasonably technical. We prove it by how the site itself is built, not by claiming it.
 
@@ -27,11 +27,11 @@ The site isn't a brochure. It plays like a **short film you scroll through**: an
 
 ## 2. Anti-slop rules (non-negotiable)
 
-1. No centered hero with a gradient blob and "We build digital experiences". No glassmorphism cards. No icon grids. No emoji.
+1. No centered hero with a gradient blob and "We build digital experiences". No glassmorphism cards (the cursor ring is the only glass on the site). No icon grids. No emoji.
 2. No purple or blue gradients and no neon green. The palette is black, bone-white and one accent. Nothing else.
 3. Every animation has to *mean* something (assembly = building, tunnel = going deeper, credits = the ending). Nothing floats around just for decoration.
 4. Type is huge and confident. The smallest display size is still bigger than you think.
-5. Copy is short, specific and a little bold. Never write "innovative solutions", "cutting-edge", "seamless" or "leverage".
+5. Copy is clear, specific and confident, written to the client. No em dashes, no location line, and never "innovative solutions", "cutting-edge", "seamless" or "leverage". The full voice rules and every line on the site are in [`COPY.md`](COPY.md).
 6. Sound is part of the design, not something added at the end. Every interaction has a voice.
 7. The "Book a call" button is visible at every moment. Art never hides the conversion path.
 
@@ -87,7 +87,7 @@ Fonts are self-hosted (inlined as WOFF2 in prototypes, `next/font/local` in prod
 | Shards → formation | Spring physics (stiffness 26, damping 6.5). Shards spin while moving and settle flat |
 | Camera | A dolly through the shard tunnel in the manifesto (z 14 → −16, scrubbed) |
 | Scroll velocity | Drives chromatic aberration and shard stretch, so fast scrolling *feels* fast |
-| Cursor | Simple: the logo's accent shard, small and solid ember, following the pointer. Over anything you can click it grows into an ember outline; it shrinks on press. A red point light follows it in 3D. Hidden on touch screens. No lenses or effects on the cursor |
+| Cursor | A hollow ring of Liquid Glass (after Apple's 2025 material), 42px. The band is a lens: in Chromium browsers an SVG displacement map bends whatever is under it, with a slight red/green/blue split at the edges; Safari and Firefox get a frosted blur instead. Ember outline on both edges, a white specular highlight on the top-left rim, soft ember glow. It trails the pointer, stretches up to 14% along fast moves, swells 1.6x over anything clickable and squeezes on press. Hidden on touch screens. Nothing "space" about it |
 | Magnetic CTA | Pulls up to 18px toward the cursor |
 | Reduced motion | No tunnel, no CA, instant formations, no char reveals. Content still fully readable |
 
@@ -118,10 +118,10 @@ All of it is generated live with the Web Audio API, so there are no audio files 
 
 ## 8. Components
 
-- **Intro (preloader):** pure black over the live 3D stage. In the middle sits one shard: the empty shape in a faint bone tint, filling with ember along its slant as loading progresses, glowing a little more as it fills. Under it, in mono: "Loading 47%". At 100% the shard breathes, and the readout gives way to an ember **Enter** pill (with a live sound-bars icon) and a quiet "Enter without sound" link. On Enter the shard bursts (pressure wave, braam), its pieces fly out of it and build the wordmark in the hero, and the letterbox bars slide in. No other copy on this screen.
+- **Intro (preloader):** pure black over the live 3D stage. In the middle the orb builds: white shards stream in from all around and take slots on a sphere along a Fibonacci spiral (equal area per slot, so pieces placed = share loaded), landing hot and cooling to graphite, while ember shards churn in a core whose light glows through every seam. The orb turns slowly, leans toward the pointer, and shards under the pointer lift. Corners: the logo top-left (exactly where the top bar's logo will be), "Web · AI · Emerging tech" top-right. Bottom-left: a huge Unbounded counter 000–100 that rolls like a mechanical odometer, with a small ember Bodoni %. Bottom-right in mono: "Assembling" and the piece count, over an ember hairline progress bar. At 100% a seal of heat runs down the finished orb and the ember **Enter** pill (with a live sound-bars icon) and a quiet "Enter without sound" link appear under it. On Enter the orb pulls in, bursts (pressure wave, braam), its shards turn from graphite to bone as they fly, and they build the wordmark in the hero while the letterbox bars slide in.
 - **Letterbox nav:** see §5. The scene label updates with a scramble effect.
 - **Caption line:** mono, centred above the bottom bar, `[sound cue]` in smoke, then copy in bone. Types itself out.
-- **Scene card:** mono eyebrow `SC.03 — WEB` → Unbounded headline → body (max 46ch) → tags.
+- **Scene card:** mono eyebrow `SC.03 · WEB` → Unbounded headline → body (max 46ch) → tags.
 - **Reel frame:** 4:5 poster with sprocket-hole edges, frame number, title in Bodoni italic, discipline in mono, and a "SAMPLE" flag until real work is in.
 - **Black hole finale:** a ray-traced Schwarzschild black hole in the style of Interstellar's Gargantua. It has a black shadow, a thin ember-to-white accretion disk with its far side lensed over and under the shadow, a faint star field dragged around it, and an Einstein ring. Scroll timeline: the hole forms around the DNA → the DNA comes apart into the whole journey around the hole: the wordmark, WEB, AI and the headset, with the DNA in the middle → gravity takes them one by one in the order the visitor saw them, each spiralling through the disk and the horizon → the headline "Everything bends / toward *one point.*" appears, then bends, smears into a spiral and falls in → DNA shards orbit and cross the horizon → the camera dives toward the bright side of the disk (a riser builds) → the light swallows the frame in a short white-hot flash (braam and impact) → it settles into a slowly swirling ember glow, the inside of the disk → a black **Book a call** pill appears at the white-hot centre. Nothing else is on screen.
 - **Buttons:** pill, mono uppercase. Primary is ember fill with void text; secondary has a hairline border.
